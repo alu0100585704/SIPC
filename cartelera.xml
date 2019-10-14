@@ -1,16 +1,17 @@
-<?xml version=”1.0” encoding=”utf-8”?>
+<?xml version="1.0" encoding="utf-8"?>
 <CARTELERA>
-    <PELÍCULA TITULO=“Men in Black”>
-<HORARIO> 19:00 </HORARIO>
-<DURACIÓN> 120 min </DURACIÓN>
-<SALA> 1 </SALA>        
-    </PELÍCULA>
-<PELÍCULA TITULO=“LOS VENGADORES”>
-<HORARIO> 19:00 </HORARIO>
-<DURACIÓN> 130 min </DURACIÓN>
-<SALA> 2</SALA>        
-    </PELÍCULA>
+    <PELICULA TITULO="Men in Black">
+		<HORARIO> 19:00 </HORARIO>
+		<DURACION> 120 min </DURACION>
+		<SALA> 1 </SALA>        
+    </PELICULA>
+<PELICULA TITULO="LOS VENGADORES">
+		<HORARIO> 19:00 </HORARIO>
+		<DURACION> 130 min </DURACION>
+		<SALA> 2</SALA>        
+</PELICULA>
+
+</CARTELERA>
 
 
-<CARTELERA>
 
