@@ -4,12 +4,11 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:template match="/"> 
    <HTML> 
     <BODY> 
-     <B> Notas del examen del 6 de Septiembre de 2005 
-</B> 
+     <B> Wiki Series</B> 
      <BR/> 
      <BR/> 
      <TABLE> 
-	<xsl:apply-templates select="CLASE/ALUMNO"/>
+	<xsl:apply-templates select="WIKISERIES/SERIE"/>
 
 <!--      <xsl:for-each  select="CLASE[@CURSO='5']/ALUMNO[NOTA&lt;5]"> 
       <xsl:sort order="ascending" select="APELLIDOS"/> 
@@ -26,12 +25,12 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
    </HTML> 
   </xsl:template> 
 
-<xsl:template match="ALUMNO">
+<xsl:template match="SERIE">
       <TR> 
-        <TD><xsl:value-of select="APELLIDOS"/>, <xsl:value-of select="NOMBRE"/></TD> 
-        <TD><B><xsl:value-of select="NOTA"/></B></TD> 
+        <H3>Personajes Principales <xsl:value-of select="PERSONAJES/PRINCIPALES"/> </H3>
         <BR></BR> 
-       </TR> 
+	<H3>Personajes Secundarios <xsl:value-of select="PERSONAJES/SECUNDARIOS"/></H3> 
+      </TR> 
 </xsl:template>
 
  </xsl:stylesheet> 
