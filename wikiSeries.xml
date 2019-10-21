@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="wikiSeries.xsl" ?>
+<WIKISERIES>
+    <SERIE TITULO="Juego de Tronos">
+	<PERSONAJES>
+		<PRINCIPALES>
+				HOLA
+				ADIOS
+		</PRINCIPALES>
+				QUE PASA
+				MAIC
+		<SECUNDARIOS>
+
+		</SECUNDARIOS>
+	</PERSONAJES>
+	<CALIFICACION CALIFICACION=""/>
+
+	<TEMPORADAS>
+	<CANTIDAD CANTIDAD="10"/>
+		<NUMERO ID="1">
+			<CAPITULO ID="1">
+			     <RESUMEN RESUMEN="ESTO ES EL RESUMEN"/>
+			     <FECHA EMISION="FECHA"/>
+		             <DURACION DURACION="1 HORA"/>
+			     <VALORACION VALORACION="+18"/>
+
+			</CAPITULO>
+			
+		</NUMERO>		
+	</TEMPORADAS>
+
+  </SERIE>
+</WIKISERIES>
+
+
+
