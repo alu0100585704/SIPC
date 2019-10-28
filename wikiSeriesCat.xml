@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="wikiSeriesCat.xsl" ?>
+<WIKISERIES>
+  <CATEGORIA NOMBRE="Fantasía" RUTAIMAGEN="https://previews.123rf.com/images/vukvuk/vukvuk1410/vukvuk141000041/32962994-las-mujeres-de-fantas%C3%ADa-de-hadas-de-env%C3%ADo-foto-compuesta.jpg">	
+
+  </CATEGORIA>
+	
+    <CATEGORIA NOMBRE="Policiacas" RUTAIMAGEN="">	
+
+   </CATEGORIA>
+</WIKISERIES>
