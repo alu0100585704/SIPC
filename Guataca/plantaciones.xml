@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="principal.xsl" ?>
+<GUATACA>
+  <CATEGORIA NOMBRE="FRUTALES">	
+
+  </CATEGORIA>
+
+  <CATEGORIA NOMBRE="HORTALIZAS">	
+
+  </CATEGORIA>
+
+
+  <CATEGORIA NOMBRE="AROMATICAS">	
+
+  </CATEGORIA>
+
+  <CATEGORIA NOMBRE="SETAS">	
+
+  </CATEGORIA>
+
+
+
+
+</GUATACA>

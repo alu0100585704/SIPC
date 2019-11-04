@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="principal.xsl" ?>
+<GUATACA>
+  <CATEGORIA NOMBRE="PLANTACIONES" IMAGEN="imagenes/plantaciones.jpeg" WEB="plantaciones.html">	
+
+  </CATEGORIA>
+	
+    <CATEGORIA NOMBRE="PRODUCTOS" IMAGEN="imagenes/productos.jpeg" WEB="productos.html">	
+
+   </CATEGORIA>
+	
+    <CATEGORIA NOMBRE="PRESUPUESTOS" IMAGEN="imagenes/presupuestos.jpeg" WEB="presupuestos.html">	
+
+   </CATEGORIA>
+
+    <CATEGORIA NOMBRE="CALENDARIO LUNAS" IMAGEN="imagenes/calendariolunas.jpeg" WEB="calendariolunas.html">	
+
+   </CATEGORIA>
+ 
+    <CATEGORIA NOMBRE="PREDICION TIEMPO" IMAGEN="prediccion.jpeg" WEB="predicciones.html">	
+
+   </CATEGORIA>
+
+    <CATEGORIA NOMBRE="FORO" IMAGEN="imagenes/foros.jpeg" WEB="foros.html">	
+   </CATEGORIA>
+
+    <CATEGORIA NOMBRE="CONTACTO" IMAGEN="imagenes/contacto.jpeg" WEB="contacto.html">	
+   </CATEGORIA>
+
+</GUATACA>
+
