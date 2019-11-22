@@ -1,0 +1,18 @@
+<?xml version="1.0" ?> 
+<CLASE CURSO=" 4 "> 
+ <ALUMNO> 
+  <NOMBRE>Eladio Ayoze</NOMBRE> 
+  <APELLIDOS>Gutierrez Bencomo</APELLIDOS> 
+  <NOTA>7.80</NOTA> 
+ </ALUMNO> 
+ <ALUMNO> 
+  <NOMBRE>Borja Maria</NOMBRE> 
+  <APELLIDOS>Almacino Marquez</APELLIDOS> 
+  <NOTA>3.25</NOTA> 
+ </ALUMNO> 
+ <ALUMNO> 
+  <NOMBRE>Guacimara Jessica</NOMBRE> 
+  <APELLIDOS>Taoro Gomez</APELLIDOS> 
+  <NOTA>3.75</NOTA> 
+ </ALUMNO> 
+</CLASE>
