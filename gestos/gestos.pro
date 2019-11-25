@@ -26,6 +26,8 @@ TEMPLATE = app
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+unix:QMAKE_RPATHDIR += $$PWD
+
 CONFIG += c++11
 
 unix::MOC_DIR = $$PWD/tmp/moc
@@ -101,11 +103,14 @@ win32: LIBS += $$PWD/libs/mingwx64/opencv412/dll/libopencv_videoio412.dll
 unix:!macx: INCLUDEPATH += $$PWD/libs/ubuntux64/opencv412/include
 unix:!macx: DEPENDPATH += $$PWD/libs/ubuntux64/opencv412/include
 
-unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_core.so
-unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_highgui.so
-unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_imgcodecs.so
-unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_imgproc.so
-unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_features2d.so
-unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_calib3d.so
-unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_videoio.so
+unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_core.so.4.1
+unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_highgui.so.4.1
+unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_imgcodecs.so.4.1
+unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_imgproc.so.4.1
+unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_features2d.so.4.1
+unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_calib3d.so.4.1
+unix:!macx: LIBS += $$PWD/libs/ubuntux64/opencv412/so/libopencv_videoio.so.4.1
+
+
+
 
