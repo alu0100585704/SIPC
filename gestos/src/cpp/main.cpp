@@ -10,6 +10,11 @@
 #include <MyBGSubtractorColor.hpp>
 #include <HandGesture.hpp>
 
+#include <QCoreApplication>
+#include <QApplication>
+#include <QDebug>
+
+#include <mainwindow.h>
 using namespace std;
 using namespace cv;
 
@@ -17,14 +22,18 @@ using namespace cv;
 
 int main(int argc, char** argv)
 {
+    QApplication a(argc, argv);
+    MainWindow m;
 
-	Mat frame, bgmask, out_frame;
+    Mat frame, bgmask, out_frame;
 	
 
 	//Abrimos la webcam
 
-	VideoCapture cap;
-	cap.open(0);
+    VideoCapture cap;
+     cap.open(0);
+     cap.release();
+    m.show();
 	if (!cap.isOpened())
 	{
 		printf("\nNo se puede abrir la cámara\n");
@@ -41,17 +50,25 @@ int main(int argc, char** argv)
                 exit(-1);
         }
 
-	// Creamos las ventanas que vamos a usar en la aplicación
 
+	// Creamos las ventanas que vamos a usar en la aplicación
+//qDebug()<< "espera 1";
 	namedWindow("Reconocimiento");
 	namedWindow("Fondo");
 
+
+
+//qDebug()<< "espera 2";
+
+
         // creamos el objeto para la substracción de fondo
-	MyBGSubtractorColor cuadrados(cap);
+    MyBGSubtractorColor cuadrados(cap);
 	// creamos el objeto para el reconocimiento de gestos
 
 	// iniciamos el proceso de obtención del modelo del fondo
 	cuadrados.LearnModel();
+    //qDebug()<< "espera 2";
+
 
 	for (;;)
 	{
@@ -87,6 +104,8 @@ int main(int argc, char** argv)
 	
 	destroyWindow("Reconocimiento");
 	destroyWindow("Fondo");
+    destroyWindow("Trackbars");
 	cap.release();
+    a.exec();
 	return 0;
 }

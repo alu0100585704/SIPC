@@ -5,6 +5,10 @@
 #-------------------------------------------------
 
 QT       += core gui
+#QT       -= gui
+CONFIG += c++11
+
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -51,15 +55,15 @@ SOURCES += \
 
 
 HEADERS += \
-        src/include/mainwindow.h \
     src/include/HandGesture.hpp \
-    src/include/MyBGSubtractorColor.hpp
+    src/include/MyBGSubtractorColor.hpp \
+    src/include/mainwindow.h
 
 FORMS += \
         src/FORMS/mainwindow.ui
 
 
-#QMAKE_CXXFLAGS  += -pthread
+QMAKE_CXXFLAGS  += -pthread
 #QMAKE_CXXFLAGS  -= -fno-keep-inline-dllexport
 #QMAKE_LFLAGS_RELEASE += -static-libgcc -static-libstdc++
 #QMAKE_LFLAGS_RELEASE += -static-cyggcc_s-1.dll -static-cygstdc++-6.dll

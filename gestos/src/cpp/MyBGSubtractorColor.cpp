@@ -51,13 +51,10 @@ void MyBGSubtractorColor::Trackbar_func(int, void*)
 void MyBGSubtractorColor::LearnModel() {
 
 
-	
-
-
 	Mat frame, tmp_frame, hls_frame;
 	std::vector<cv::Point> samples_positions;
 
-	cap >> frame;
+    cap >> frame;
 	
 	//almacenamos las posiciones de las esquinas de los cuadrados 
 	Point p;
@@ -73,7 +70,7 @@ void MyBGSubtractorColor::LearnModel() {
 
 	for (;;) {
 		
-		flip(frame, frame, 1);
+        flip(frame, frame, 1);
 		
 		frame.copyTo(tmp_frame);
 
@@ -93,7 +90,7 @@ void MyBGSubtractorColor::LearnModel() {
 		{
 			break;
 		}
-		cap >> frame;
+        cap >> frame;
 	}
 
         // CODIGO 1.1
