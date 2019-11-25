@@ -40,12 +40,12 @@ unix::RCC_DIR = $$PWD/tmp/resources
 mac::RCC_DIR = $$PWD/tmp/resources
 win32::RCC_DIR = $$PWD/tmp/resources
 
-
  CONFIG(debug, debug|release) {
      unix: TARGET = $$join(TARGET,,,d)
      win32: TARGET = $$join(TARGET,,,d)
      mac: TARGET = $$join(TARGET,,,d)
  }
+
 
 SOURCES += \
        src/cpp/main.cpp \
@@ -60,7 +60,7 @@ HEADERS += \
     src/include/mainwindow.h
 
 FORMS += \
-        src/FORMS/mainwindow.ui
+        src/Forms/mainwindow.ui
 
 
 QMAKE_CXXFLAGS  += -pthread
