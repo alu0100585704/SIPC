@@ -29,11 +29,11 @@ int main(int argc, char** argv)
 	
 
 	//Abrimos la webcam
-
+    m.show();
+a.exec();
     VideoCapture cap;
      cap.open(0);
-     cap.release();
-    m.show();
+
 	if (!cap.isOpened())
 	{
 		printf("\nNo se puede abrir la cámara\n");
@@ -84,6 +84,7 @@ int main(int argc, char** argv)
 
 		if ((char)c == 'q') break;
 
+        using namespace std;
 		// obtenemos la máscara del fondo con el frame actual
                 
                 // CODIGO 2.1
