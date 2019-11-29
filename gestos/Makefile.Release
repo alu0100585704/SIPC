@@ -593,6 +593,9 @@ tmp/o/mainwindow.o: src/cpp/mainwindow.cpp src/include/mainwindow.h \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtGui/qicon.h \
 		ui_mainwindow.h \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtCore/QVariant \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/QAction \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qaction.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/QApplication \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qapplication.h \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtCore/qcoreapplication.h \
@@ -600,11 +603,28 @@ tmp/o/mainwindow.o: src/cpp/mainwindow.cpp src/include/mainwindow.h \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtGui/qguiapplication.h \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtGui/qinputmethod.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/QButtonGroup \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qbuttongroup.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/QHeaderView \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qheaderview.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qabstractitemview.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qframe.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtCore/qabstractitemmodel.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtCore/qitemselectionmodel.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qstyleoption.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtGui/qvalidator.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtCore/qregularexpression.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qslider.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qabstractslider.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qstyle.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qtabbar.h \
+		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qrubberband.h \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/QMenuBar \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qmenubar.h \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qmenu.h \
-		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qaction.h \
-		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/QStatusBar \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/qstatusbar.h \
 		../../../Qt/Qt5.12.0/5.12.0/mingw73_64/include/QtWidgets/QToolBar \

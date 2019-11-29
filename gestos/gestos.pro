@@ -26,7 +26,7 @@ TEMPLATE = app
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-unix:QMAKE_RPATHDIR += $ORIGIN
+unix:QMAKE_RPATHDIR += $ORIGIN/so
 
 CONFIG += c++11
 
@@ -42,11 +42,11 @@ unix::RCC_DIR = $$PWD/tmp/resources
 mac::RCC_DIR = $$PWD/tmp/resources
 win32::RCC_DIR = $$PWD/tmp/resources
 
- CONFIG(debug, debug|release) {
-     unix: TARGET = $$join(TARGET,,,d)
-     win32: TARGET = $$join(TARGET,,,d)
-     mac: TARGET = $$join(TARGET,,,d)
- }
+# CONFIG(debug, debug|release) {
+#     unix: TARGET = $$join(TARGET,,,d)
+#     win32: TARGET = $$join(TARGET,,,d)
+#     mac: TARGET = $$join(TARGET,,,d)
+# }
 
 
 SOURCES += \
