@@ -20,6 +20,7 @@ int main(int argc, char** argv)
     w.setWindowTitle("Los mejores");
     w.show();
 
+
  return a.exec();
 }
 

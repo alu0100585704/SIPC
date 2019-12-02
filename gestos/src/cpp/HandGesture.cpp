@@ -44,10 +44,19 @@ void HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
         // CODIGO 3.1
         // detección del contorno de la mano y selección del contorno más largo
         //...
+    circle(temp_mask, Point (10,10), 5, Scalar(255));
+        findContours(temp_mask,contours,cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
 
         // pintar el contorno
         //...
-	
+        int aux_sz = 0;
+            for(int i = 0; i < contours.size();i++)
+                if(contours[i].size() > aux_sz){
+                    aux_sz = contours[i].size();
+                    index  = i;
+                }
+            drawContours(output_img,contours, index, cv::Scalar(305,49,43), 2, 8, vector<Vec4i>(), 0, Point());
+
 
 	//obtener el convex hull	
 	vector<int> hull;
@@ -79,8 +88,8 @@ void HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
                         // CODIGO 3.2
                         // filtrar y mostrar los defectos de convexidad
                         //...
-
+            circle(output_img, f, 5, Scalar(0,255,0), 3);
                 }
 	
-		
+
 }

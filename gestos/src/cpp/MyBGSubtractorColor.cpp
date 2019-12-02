@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string>
-
+#include <QMessageBox>
 using namespace cv;
 using namespace std;
 
@@ -16,12 +16,12 @@ using namespace std;
 
 MyBGSubtractorColor::MyBGSubtractorColor(VideoCapture vc) {
 
-	cap = vc;
+    cap = vc;
 	max_samples = MAX_HORIZ_SAMPLES * MAX_VERT_SAMPLES;
 	lower_bounds = vector<Scalar>(max_samples);
 	upper_bounds = vector<Scalar>(max_samples);
 	means = vector<Scalar>(max_samples);
-	
+
 	h_low = 12;
     h_up = 7;
 	l_low = 30;
@@ -32,17 +32,16 @@ MyBGSubtractorColor::MyBGSubtractorColor(VideoCapture vc) {
     mediana=1;
 
 	
-	namedWindow("Trackbars");
-
+    namedWindow("Trackbars");
 	createTrackbar("H low:", "Trackbars", &h_low, 100, &MyBGSubtractorColor::Trackbar_func);
 	createTrackbar("H high:", "Trackbars", &h_up, 100, &MyBGSubtractorColor::Trackbar_func);
 	createTrackbar("L low:", "Trackbars", &l_low, 100, &MyBGSubtractorColor::Trackbar_func);
 	createTrackbar("L high:", "Trackbars", &l_up, 100, &MyBGSubtractorColor::Trackbar_func);
 	createTrackbar("S low:", "Trackbars", &s_low, 100, &MyBGSubtractorColor::Trackbar_func);
 	createTrackbar("S high:", "Trackbars", &s_up, 100, &MyBGSubtractorColor::Trackbar_func);
-    createTrackbar("Mediana:", "Trackbars", &mediana, 8, &MyBGSubtractorColor::Trackbar_func);
-    createTrackbar("Dilation", "Trackbars", &dilation, 100, &MyBGSubtractorColor::Trackbar_func);
-
+    //createTrackbar("Mediana:", "Trackbars", &mediana, 100, &MyBGSubtractorColor::Trackbar_func);
+    createTrackbar("Dilation", "Trackbars", &dilation, 5, &MyBGSubtractorColor::Trackbar_func);
+    createTrackbar("Erosion", "Trackbars", &ero, 5, &MyBGSubtractorColor::Trackbar_func);
 }
 
 void MyBGSubtractorColor::Trackbar_func(int, void*)
@@ -70,31 +69,30 @@ void MyBGSubtractorColor::LearnModel() {
 	}
 
     namedWindow("Cubre los cuadrados con la mano y pulsa espacio");
+char c;
+    do {
+        cap >> frame;
 
-	for (;;) {
-		
         flip(frame, frame, 1);
-		
-		frame.copyTo(tmp_frame);
 
-		//dibujar los cuadrados
-		
-		for (int i = 0; i < max_samples; i++) {
-			rectangle(tmp_frame, Rect(samples_positions[i].x, samples_positions[i].y,
-				      SAMPLE_SIZE, SAMPLE_SIZE), Scalar(0, 255, 0), 2);
-		}
-		
-	
+        frame.copyTo(tmp_frame);
+
+        //dibujar los cuadrados
+
+        for (int i = 0; i < max_samples; i++) {
+            rectangle(tmp_frame, Rect(samples_positions[i].x, samples_positions[i].y,
+                      SAMPLE_SIZE, SAMPLE_SIZE), Scalar(0, 255, 0), 2);
+        }
+
+
 
         imshow("Cubre los cuadrados con la mano y pulsa espacio", tmp_frame);
 
-        char c = cv::waitKey(40);
-		if (c == ' ')
-		{
-			break;
-		}
-        cap >> frame;
-	}
+        c = cv::waitKey(40);
+
+    }  while ((char)c != ' ');
+
+
 
         // CODIGO 1.1
         // Obtener las regiones de interés y calcular la media de cada una de ellas
@@ -166,10 +164,11 @@ Scalar aux;
                     acc = acc +tmp_frame;
             }
 
+        acc.copyTo(bgmask);
 medianBlur(bgmask, bgmask,mediana);
-
 Mat element = getStructuringElement(MORPH_RECT, Size(2*dilation + 1, 2*dilation + 1),Point(dilation,dilation));
-acc.copyTo(bgmask);
-
+Mat erosion = getStructuringElement(MORPH_RECT, Size(2*ero + 1, 2*ero + 1),Point(ero,ero));
+dilate(bgmask,bgmask,element);
+erode(bgmask,bgmask,erosion);
 
 }

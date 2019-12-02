@@ -14,6 +14,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QTimer>
+#include <QCloseEvent>
 
 namespace Ui {
 class MainWindow;
@@ -28,7 +29,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+    void closeEvent(QCloseEvent *event);
 
 private slots:
 
@@ -38,8 +39,7 @@ private slots:
 
     void on_capturarMano_clicked();
 
-    void on_salir_clicked();
-    void reconocimiento();
+    void on_salir_clicked();    
 
 private:
     void limpiar();
@@ -47,11 +47,8 @@ private:
     Ui::MainWindow *ui;
     Mat frame_, bgmask_, out_frame_;
     VideoCapture *cap_;
-    bool camaraIsOpen_;
-    bool manoCapturada_;
+    bool reiniciarHIGHGUI_;
     bool isReconociendo_;
-    bool isCapturando_;
-    bool  execHilo_;
     MyBGSubtractorColor *cuadrados_;
     QTimer * timerReconocimiento_;
 
