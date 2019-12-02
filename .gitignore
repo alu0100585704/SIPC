@@ -1,5 +1,5 @@
-*/tmp
 */*/*/debug
-*/*/*/release
 */*.pro.user*
 */*.pro.user.*
+*/*/*/release
+*/tmp

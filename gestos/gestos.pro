@@ -5,13 +5,10 @@
 #-------------------------------------------------
 
 QT       += core gui
-#QT       -= gui
-CONFIG += c++11
-
-
-
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+
+CONFIG += c++11
 TARGET = gestos
 TEMPLATE = app
 
@@ -42,11 +39,11 @@ unix::RCC_DIR = $$PWD/tmp/resources
 mac::RCC_DIR = $$PWD/tmp/resources
 win32::RCC_DIR = $$PWD/tmp/resources
 
-# CONFIG(debug, debug|release) {
-#     unix: TARGET = $$join(TARGET,,,d)
-#     win32: TARGET = $$join(TARGET,,,d)
-#     mac: TARGET = $$join(TARGET,,,d)
-# }
+ CONFIG(debug, debug|release) {
+     unix: TARGET = $$join(TARGET,,,d)
+     win32: TARGET = $$join(TARGET,,,d)
+     mac: TARGET = $$join(TARGET,,,d)
+ }
 
 
 SOURCES += \
@@ -76,8 +73,8 @@ QMAKE_CFLAGS += -std=gnu++0x -pthread
 LIBS += -pthread
 
 
-QMAKE_CXXFLAGS += -g
-QMAKE_CFLAGS += -g
+#QMAKE_CXXFLAGS += -g
+#QMAKE_CFLAGS += -g
 
 RESOURCES += \
     src/qrc/recursos.qrc

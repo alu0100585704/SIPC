@@ -23,7 +23,7 @@ public:
 	
 
 private:
-	int h_low,h_up,l_low,l_up,s_low,s_up;
+    int h_low,h_up,l_low,l_up,s_low,s_up,dilation,mediana;
     cv::VideoCapture cap;
 	
 	std::vector<cv::Scalar> means;

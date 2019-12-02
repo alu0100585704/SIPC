@@ -23,11 +23,13 @@ MyBGSubtractorColor::MyBGSubtractorColor(VideoCapture vc) {
 	means = vector<Scalar>(max_samples);
 	
 	h_low = 12;
-        h_up = 7;
+    h_up = 7;
 	l_low = 30;
 	l_up = 40;
 	s_low = 80;
 	s_up = 80;
+    dilation=5;
+    mediana=1;
 
 	
 	namedWindow("Trackbars");
@@ -38,7 +40,8 @@ MyBGSubtractorColor::MyBGSubtractorColor(VideoCapture vc) {
 	createTrackbar("L high:", "Trackbars", &l_up, 100, &MyBGSubtractorColor::Trackbar_func);
 	createTrackbar("S low:", "Trackbars", &s_low, 100, &MyBGSubtractorColor::Trackbar_func);
 	createTrackbar("S high:", "Trackbars", &s_up, 100, &MyBGSubtractorColor::Trackbar_func);
-
+    createTrackbar("Mediana:", "Trackbars", &mediana, 8, &MyBGSubtractorColor::Trackbar_func);
+    createTrackbar("Dilation", "Trackbars", &dilation, 100, &MyBGSubtractorColor::Trackbar_func);
 
 }
 
@@ -66,7 +69,7 @@ void MyBGSubtractorColor::LearnModel() {
 		}
 	}
 
-	namedWindow("Cubre los cuadrados con la mano y pulsa espacio");
+    namedWindow("Cubre los cuadrados con la mano y pulsa espacio");
 
 	for (;;) {
 		
@@ -83,8 +86,8 @@ void MyBGSubtractorColor::LearnModel() {
 		
 	
 
-		imshow("Cubre los cuadrados con la mano y pulsa espacio", tmp_frame);
-        //char c = cvWaitKey(40);
+        imshow("Cubre los cuadrados con la mano y pulsa espacio", tmp_frame);
+
         char c = cv::waitKey(40);
 		if (c == ' ')
 		{
@@ -98,15 +101,12 @@ void MyBGSubtractorColor::LearnModel() {
         // almacenar las medias en la variable means
         // ...
 
-//	cvtColor(frame, hls_frame, CV_BGR2HLS);
         cvtColor(frame, hls_frame, cv::COLOR_BGR2HLS);
 	for (int i = 0; i < max_samples; i++) {
 		Mat roi = hls_frame(Rect(samples_positions[i].x, samples_positions[i].y, MAX_HORIZ_SAMPLES, MAX_VERT_SAMPLES));
-		means.push_back(mean(roi));
+        means[i]=mean(roi);
 	}
-	
-
-	
+		
         destroyWindow("Cubre los cuadrados con la mano y pulsa espacio");
 
 }
@@ -118,4 +118,58 @@ void  MyBGSubtractorColor::ObtainBGMask(cv::Mat frame, cv::Mat &bgmask) {
         // obtener la mÃ¡scara final con el fondo eliminado
         //...
 	
+ Mat hls_frame, tmp_frame;
+Mat acc(frame.rows,frame.cols,CV_8U);
+acc.setTo(Scalar (0));
+Scalar aux;
+    // CODIGO 1.2
+    // Definir los rangos máximos y mínimos para cada canal (HLS)
+    // umbralizar las imágenes para cada rango y sumarlas para
+    // obtener la máscara final con el fondo eliminado
+    //...
+ cvtColor(frame, hls_frame, cv::COLOR_BGR2HLS);
+
+        for (int i = 0; i < max_samples; i++)
+            {
+                    aux[0] = means[i][0];
+                    aux[1] = means[i][1];
+                    aux[2] = means[i][2];
+                    Scalar low, high;
+
+                        if((aux[0]-h_low)<0)
+                            low[0] = 0;
+                        else
+                            low[0] = aux[0]-h_low;
+
+                        if((aux[1]-l_low)<0)
+                            low[1] = 0;
+                        else
+                            low[1] = aux[1]-l_low;
+                        if((aux[2]-h_low)<0)
+                            low[2] = 0;
+                        else
+                            low[2] = aux[2]-s_low;
+                        if((aux[0]+h_up)>255)
+                            high[0] = 255;
+                        else
+                            high[0] = aux[0]+h_up;
+                        if((aux[1]+l_up)>255)
+                            high[1] = 255;
+                        else
+                            high[1] = aux[1]+l_up;
+                        if((aux[2]+s_up)>255)
+                            high[2] = 255;
+                        else
+                            high[2] = aux[2]+s_up;
+
+                    inRange(hls_frame, low, high, tmp_frame);
+                    acc = acc +tmp_frame;
+            }
+
+medianBlur(bgmask, bgmask,mediana);
+
+Mat element = getStructuringElement(MORPH_RECT, Size(2*dilation + 1, 2*dilation + 1),Point(dilation,dilation));
+acc.copyTo(bgmask);
+
+
 }

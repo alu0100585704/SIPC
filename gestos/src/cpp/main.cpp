@@ -1,19 +1,5 @@
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/core/core.hpp>
-#include <opencv2/video/background_segm.hpp>
-
-#include <stdio.h>
-#include <string>
-#include <iostream>
-
-#include <MyBGSubtractorColor.hpp>
-#include <HandGesture.hpp>
-
 #include <QCoreApplication>
 #include <QApplication>
-#include <QDebug>
-
 #include <mainwindow.h>
 using namespace std;
 using namespace cv;
@@ -22,91 +8,18 @@ using namespace cv;
 
 int main(int argc, char** argv)
 {
+    QCoreApplication::setApplicationName("Grupo Maquinas");
+    QCoreApplication::setOrganizationDomain("Los mejores");
+    QCoreApplication::setOrganizationName("RMPixel");
+
     QApplication a(argc, argv);
-    MainWindow m;
-
-    Mat frame, bgmask, out_frame;
-	
-
-	//Abrimos la webcam
-    m.show();
-a.exec();
-    VideoCapture cap;
-     cap.open(0);
-
-	if (!cap.isOpened())
-	{
-		printf("\nNo se puede abrir la cámara\n");
-		return -1;
-	}
-        int cont = 0;
-        while (frame.empty()&& cont < 2000 ) {
-
-                cap >> frame;
-                ++cont;
-        }
-        if (cont >= 2000) {
-                printf("No se ha podido leer un frame válido\n");
-                exit(-1);
-        }
+    MainWindow w;
 
 
-	// Creamos las ventanas que vamos a usar en la aplicación
-//qDebug()<< "espera 1";
-	namedWindow("Reconocimiento");
-	namedWindow("Fondo");
+    w.setWindowIcon(QIcon(":/Recursos/Images/RMpixel ico 64x64.png"));
+    w.setWindowTitle("Los mejores");
+    w.show();
 
-
-
-//qDebug()<< "espera 2";
-
-
-        // creamos el objeto para la substracción de fondo
-    MyBGSubtractorColor cuadrados(cap);
-	// creamos el objeto para el reconocimiento de gestos
-
-	// iniciamos el proceso de obtención del modelo del fondo
-	cuadrados.LearnModel();
-    //qDebug()<< "espera 2";
-
-
-	for (;;)
-	{
-		cap >> frame;
-		//flip(frame, frame, 1);
-		if (frame.empty())
-		{
-			printf("Leído frame vacío\n");
-			continue;
-		}
-//		int c = cvWaitKey(40);
-                int c = cv::waitKey(40);
-
-		if ((char)c == 'q') break;
-
-        using namespace std;
-		// obtenemos la máscara del fondo con el frame actual
-                
-                // CODIGO 2.1
-                // limpiar la máscara del fondo de ruido
-                //...
-
-
-		// deteccion de las características de la mano
-
-                // mostramos el resultado de la sobstracción de fondo
-		
-                // mostramos el resultado del reconocimento de gestos
-
-		imshow("Reconocimiento", frame);
-
-		
-	}
-	
-	destroyWindow("Reconocimiento");
-	destroyWindow("Fondo");
-    destroyWindow("Trackbars");
-	cap.release();
-    a.exec();
-	return 0;
+ return a.exec();
 }
+
