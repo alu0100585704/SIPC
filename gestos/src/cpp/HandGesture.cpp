@@ -10,6 +10,7 @@
 #include <string>
 #include <map>
 #include <QDebug>
+#include <QMessageBox>
 using namespace cv;
 using namespace std;
 
@@ -35,7 +36,7 @@ double HandGesture::getAngle(Point s, Point e, Point f) {
 	if (angle < -CV_PI) angle += 2 * CV_PI;
 	return (angle * 180.0/CV_PI);
 }
-void HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
+int HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
 	
 	vector<vector<Point> > contours;
 	Mat temp_mask;
@@ -104,6 +105,8 @@ void HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
                 }
         int contador=0;
         map<float,vector<Point>>::reverse_iterator it_mayor;
+        vector<pair<bool,Point>> gestos(4); //inicializo para contar los puntos
+        pair <bool,Point> puntoGesto;
         it_mayor=mayor.rbegin();
         while ((it_mayor!= mayor.rend()) && (contador <4))
         {
@@ -114,7 +117,12 @@ void HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
             contador = contador +1;
             it_mayor++;
 
+            //imshow("Reconocimiento", output_img);
+            //QMessageBox::warning(nullptr,"Punto",QString("Valor profundiad %1").arg(it_mayor->first));
+
        }
 
+        int gesto=0;
+return gesto;
 
 }

@@ -153,15 +153,25 @@ int c;
              //...
              cuadrados_->ObtainBGMask(frame_, bgmask_);
              HandGesture mano;
-             mano.FeaturesDetection(bgmask_, frame_);
-             imshow("Fondo", bgmask_);
+             int gesto=mano.FeaturesDetection(bgmask_, frame_);
 
 
              // deteccion de las características de la mano
 
                      // mostramos el resultado de la sobstracción de fondo
 
-                     // mostramos el resultado del reconocimento de gestos
+                       // mostramos el resultado del reconocimento de gestos
+             putText(frame_,"Mano Cerrada",Point(30,10),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+            switch (gesto)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                default:
+                    break;
+             }
+            imshow("Fondo", bgmask_);
 
              imshow("Reconocimiento", frame_);
 

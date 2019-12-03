@@ -13,7 +13,8 @@ class HandGesture {
 
 public:
 	HandGesture();
-	void FeaturesDetection(cv::Mat mask, cv::Mat output_img);
+
+    int FeaturesDetection(cv::Mat mask, cv::Mat output_img);
 	
 
 private:
