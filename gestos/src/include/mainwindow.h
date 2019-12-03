@@ -41,6 +41,8 @@ private slots:
 
     void on_salir_clicked();    
 
+    void on_checkBox_stateChanged(int arg1);
+
 private:
     void limpiar();
 

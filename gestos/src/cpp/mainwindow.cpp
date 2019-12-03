@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     isReconociendo_=false;
     ui->capturarMano->setDisabled(true);
     ui->reconocerMano->setDisabled(true);
+    ui->checkBox->setDisabled(true);
 
 }
 
@@ -28,7 +29,10 @@ MainWindow::~MainWindow()
 void MainWindow::on_salir_clicked()
 {
     if (isReconociendo_)
+    {
           reiniciarHIGHGUI_=true;
+          cuadrados_->reiniciarHIGHGUI_=true;
+    }
   else
     qApp->quit();
 
@@ -41,20 +45,22 @@ void MainWindow::limpiar()
     ui->capturarMano->setDisabled(true);
     ui->reconocerMano->setDisabled(true);
     ui->salir->setDisabled(false);
+    ui->salir->setText("Salir");
+    ui->checkBox->setDisabled(true);
     reiniciarHIGHGUI_=false;
     isReconociendo_=false;
 
     destroyAllWindows();
 
-    if (cap_ != NULL)
+    if (cap_ != nullptr)
         delete cap_;
 
 
-    if (cuadrados_ != NULL)
+    if (cuadrados_ != nullptr)
             delete cuadrados_;
 
-    cap_=NULL;
-    cuadrados_=NULL;
+    cap_=nullptr;
+    cuadrados_=nullptr;
     ui->iniciarCamara->setText("Reiniciar Camara");
 }
 
@@ -96,13 +102,25 @@ void MainWindow::on_iniciarCamara_clicked()
 void MainWindow::on_capturarMano_clicked()
 {
     ui->iniciarCamara->setDisabled(true);
-    ui->salir->setDisabled(true);
-    ui->capturarMano->setDisabled(true);
-    cuadrados_->LearnModel();
-
-    ui->iniciarCamara->setDisabled(false);
-    ui->reconocerMano->setDisabled(false);
     ui->salir->setDisabled(false);
+    ui->salir->setText("Cerrar");
+    ui->capturarMano->setDisabled(true);
+    isReconociendo_=true;
+    bool reiniciar=cuadrados_->LearnModel();
+
+    if (reiniciar)
+    {
+        isReconociendo_=false;
+        reiniciarHIGHGUI_=false;
+        cuadrados_->reiniciarHIGHGUI_=false;
+        limpiar();
+    }
+    else {
+            ui->iniciarCamara->setDisabled(false);
+            ui->reconocerMano->setDisabled(false);
+            ui->salir->setDisabled(false);
+            ui->salir->setText("Salir");
+    }
 
 
 }
@@ -114,6 +132,8 @@ void MainWindow::on_reconocerMano_clicked()
     ui->capturarMano->setDisabled(true);
     ui->reconocerMano->setDisabled(true);
     ui->salir->setDisabled(false);
+    ui->salir->setText("Cerrar");
+    ui->checkBox->setDisabled(false);
     isReconociendo_=true;
 int c;
     do {
@@ -164,4 +184,15 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
     else
        event->accept();
+}
+
+void MainWindow::on_checkBox_stateChanged(int arg1)
+{
+
+        if (arg1==2)
+             cuadrados_->max_samples=cuadrados_->max_samples+1;
+
+        else if (arg1==0)
+            cuadrados_->max_samples=cuadrados_->max_samples-1;
+
 }

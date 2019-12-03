@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -30,6 +31,7 @@ public:
     QPushButton *capturarMano;
     QPushButton *reconocerMano;
     QPushButton *salir;
+    QCheckBox *checkBox;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -65,6 +67,11 @@ public:
 
         gridLayout->addWidget(salir, 0, 1, 1, 1);
 
+        checkBox = new QCheckBox(centralWidget);
+        checkBox->setObjectName(QString::fromUtf8("checkBox"));
+
+        gridLayout->addWidget(checkBox, 1, 1, 1, 1);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -89,6 +96,7 @@ public:
         capturarMano->setText(QApplication::translate("MainWindow", "Capturar Mano", nullptr));
         reconocerMano->setText(QApplication::translate("MainWindow", "Reconocimiento", nullptr));
         salir->setText(QApplication::translate("MainWindow", "Salir", nullptr));
+        checkBox->setText(QApplication::translate("MainWindow", "Media Total", nullptr));
     } // retranslateUi
 
 };

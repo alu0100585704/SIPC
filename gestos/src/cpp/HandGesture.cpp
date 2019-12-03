@@ -8,7 +8,8 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string>
-
+#include <map>
+#include <QDebug>
 using namespace cv;
 using namespace std;
 
@@ -77,6 +78,9 @@ void HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
 	convexityDefects(contours[index], hull, defects);
 		
 		
+    map<float,vector<Point>> mayor;
+    pair<float,vector<Point>> nodo;
+
 		int cont = 0;
 		for (int i = 0; i < defects.size(); i++) {
 			Point s = contours[index][defects[i][0]];
@@ -84,12 +88,33 @@ void HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
 			Point f = contours[index][defects[i][2]];
 			float depth = (float)defects[i][3] / 256.0;
 			double angle = getAngle(s, e, f);
-		
-                        // CODIGO 3.2
+            if (angle < 90.00) //si el ángulo es mayor de 90 grados, ni siquiera insertes el punto en el map.
+                {
+                    nodo.second.resize(3);
+                    nodo.first=depth;
+                    nodo.second[0]=s;
+                    nodo.second[1]=e;
+                    nodo.second[2]=f;
+                    mayor.insert(nodo);
+                 }
+                          // CODIGO 3.2
                         // filtrar y mostrar los defectos de convexidad
                         //...
-            circle(output_img, f, 5, Scalar(0,255,0), 3);
+
                 }
-	
+        int contador=0;
+        map<float,vector<Point>>::reverse_iterator it_mayor;
+        it_mayor=mayor.rbegin();
+        while ((it_mayor!= mayor.rend()) && (contador <4))
+        {
+            //marco los puntos mas a lejados y el inicio de cada uno de ellos
+            circle(output_img, it_mayor->second[0], 5, Scalar(255,0,0), 3);
+            circle(output_img, it_mayor->second[1], 5, Scalar(0,255,0), 3);
+            circle(output_img, it_mayor->second[2], 5, Scalar(0,0,255), 3);
+            contador = contador +1;
+            it_mayor++;
+
+       }
+
 
 }

@@ -17,21 +17,26 @@ using namespace std;
 MyBGSubtractorColor::MyBGSubtractorColor(VideoCapture vc) {
 
     cap = vc;
-	max_samples = MAX_HORIZ_SAMPLES * MAX_VERT_SAMPLES;
-	lower_bounds = vector<Scalar>(max_samples);
-	upper_bounds = vector<Scalar>(max_samples);
-	means = vector<Scalar>(max_samples);
-
+    lower_bounds = vector<Scalar>();
+    upper_bounds = vector<Scalar>();
+    means = vector<Scalar>();
+    reiniciarHIGHGUI_=false;
+    mediaTodosLosCuadrados_=0;
 	h_low = 12;
     h_up = 7;
 	l_low = 30;
 	l_up = 40;
 	s_low = 80;
 	s_up = 80;
-    dilation=5;
+    dilation=0;
     mediana=1;
+    ero=0;
+    max_horiz_samples=3;
+    max_vert_samples=6;
+    sample_size=20;
+    distance_between_samples=30;
+    aplicarMediaTotal_=false;
 
-	
     namedWindow("Trackbars");
 	createTrackbar("H low:", "Trackbars", &h_low, 100, &MyBGSubtractorColor::Trackbar_func);
 	createTrackbar("H high:", "Trackbars", &h_up, 100, &MyBGSubtractorColor::Trackbar_func);
@@ -40,8 +45,12 @@ MyBGSubtractorColor::MyBGSubtractorColor(VideoCapture vc) {
 	createTrackbar("S low:", "Trackbars", &s_low, 100, &MyBGSubtractorColor::Trackbar_func);
 	createTrackbar("S high:", "Trackbars", &s_up, 100, &MyBGSubtractorColor::Trackbar_func);
     //createTrackbar("Mediana:", "Trackbars", &mediana, 100, &MyBGSubtractorColor::Trackbar_func);
-    createTrackbar("Dilation", "Trackbars", &dilation, 5, &MyBGSubtractorColor::Trackbar_func);
-    createTrackbar("Erosion", "Trackbars", &ero, 5, &MyBGSubtractorColor::Trackbar_func);
+    createTrackbar("Dilation", "Trackbars", &dilation, 25, &MyBGSubtractorColor::Trackbar_func);
+    createTrackbar("Erosion", "Trackbars", &ero, 25, &MyBGSubtractorColor::Trackbar_func);
+    createTrackbar("MAX_HORIZ_SAMPLES", "Trackbars", &max_horiz_samples, 50, nullptr);
+    createTrackbar("MAX_VERT_SAMPLES", "Trackbars", &max_vert_samples, 50, nullptr);
+    createTrackbar("SAMPLE_SIZE", "Trackbars", &sample_size, 150, &MyBGSubtractorColor::Trackbar_func);
+    createTrackbar("DISTANCE_BEWEEN_SAMPLES", "Trackbars", &distance_between_samples, 50, &MyBGSubtractorColor::Trackbar_func);
 }
 
 void MyBGSubtractorColor::Trackbar_func(int, void*)
@@ -49,29 +58,36 @@ void MyBGSubtractorColor::Trackbar_func(int, void*)
 
 }
 
-
-void MyBGSubtractorColor::LearnModel() {
+bool  MyBGSubtractorColor::LearnModel() {
 
 
 	Mat frame, tmp_frame, hls_frame;
 	std::vector<cv::Point> samples_positions;
 
-    cap >> frame;
-	
-	//almacenamos las posiciones de las esquinas de los cuadrados 
-	Point p;
-	for (int i = 0; i < MAX_HORIZ_SAMPLES; i++) {
-		for (int j = 0; j < MAX_VERT_SAMPLES; j++) {
-			p.x = frame.cols / 2 + (-MAX_HORIZ_SAMPLES / 2 + i)*(SAMPLE_SIZE + DISTANCE_BETWEEN_SAMPLES);
-			p.y = frame.rows / 2 + (-MAX_VERT_SAMPLES / 2 + j)*(SAMPLE_SIZE + DISTANCE_BETWEEN_SAMPLES);
-			samples_positions.push_back(p);
-		}
-	}
 
     namedWindow("Cubre los cuadrados con la mano y pulsa espacio");
-char c;
+
+  char c;
     do {
+
+      max_samples = max_horiz_samples * max_vert_samples;
+      lower_bounds.resize(max_samples);
+      upper_bounds.resize(max_samples);
+      means.resize(max_samples);
+      samples_positions.resize(0);
+
         cap >> frame;
+
+
+        //almacenamos las posiciones de las esquinas de los cuadrados
+        Point p;
+        for (int i = 0; i < max_horiz_samples; i++) {
+            for (int j = 0; j < max_vert_samples; j++) {
+                p.x = frame.cols / 2 + (-max_horiz_samples / 2 + i)*(sample_size + distance_between_samples);
+                p.y = frame.rows / 2 + (-max_vert_samples / 2 + j)*(sample_size+ distance_between_samples);
+                samples_positions.push_back(p);
+            }
+        }
 
         flip(frame, frame, 1);
 
@@ -81,18 +97,19 @@ char c;
 
         for (int i = 0; i < max_samples; i++) {
             rectangle(tmp_frame, Rect(samples_positions[i].x, samples_positions[i].y,
-                      SAMPLE_SIZE, SAMPLE_SIZE), Scalar(0, 255, 0), 2);
+                      sample_size, sample_size), Scalar(0, 255, 0), 2);
         }
-
 
 
         imshow("Cubre los cuadrados con la mano y pulsa espacio", tmp_frame);
 
         c = cv::waitKey(40);
 
-    }  while ((char)c != ' ');
+    }  while (((char)c != ' ') && (!reiniciarHIGHGUI_));
 
 
+if (!reiniciarHIGHGUI_)
+{
 
         // CODIGO 1.1
         // Obtener las regiones de interÃ©s y calcular la media de cada una de ellas
@@ -101,12 +118,21 @@ char c;
 
         cvtColor(frame, hls_frame, cv::COLOR_BGR2HLS);
 	for (int i = 0; i < max_samples; i++) {
-		Mat roi = hls_frame(Rect(samples_positions[i].x, samples_positions[i].y, MAX_HORIZ_SAMPLES, MAX_VERT_SAMPLES));
+        Mat roi = hls_frame(Rect(samples_positions[i].x, samples_positions[i].y,sample_size, sample_size));
         means[i]=mean(roi);
+        mediaTodosLosCuadrados_[0]=mediaTodosLosCuadrados_[0] + means[i][0];
+        mediaTodosLosCuadrados_[1]=mediaTodosLosCuadrados_[1] + means[i][1];
+        mediaTodosLosCuadrados_[2]=mediaTodosLosCuadrados_[2] + means[i][2];
 	}
 		
-        destroyWindow("Cubre los cuadrados con la mano y pulsa espacio");
+    mediaTodosLosCuadrados_[0]=mediaTodosLosCuadrados_[0] /max_samples;
+    mediaTodosLosCuadrados_[1]=mediaTodosLosCuadrados_[1] /max_samples;
+    mediaTodosLosCuadrados_[2]=mediaTodosLosCuadrados_[2] /max_samples;
+    means.push_back(mediaTodosLosCuadrados_); //agrego media de todos los puntos al final del vector
 
+        destroyWindow("Cubre los cuadrados con la mano y pulsa espacio");
+ }
+ return reiniciarHIGHGUI_;
 }
 void  MyBGSubtractorColor::ObtainBGMask(cv::Mat frame, cv::Mat &bgmask) {
         
@@ -126,6 +152,7 @@ Scalar aux;
     // obtener la máscara final con el fondo eliminado
     //...
  cvtColor(frame, hls_frame, cv::COLOR_BGR2HLS);
+
 
         for (int i = 0; i < max_samples; i++)
             {
@@ -172,3 +199,4 @@ dilate(bgmask,bgmask,element);
 erode(bgmask,bgmask,erosion);
 
 }
+

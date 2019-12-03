@@ -18,17 +18,19 @@ class MyBGSubtractorColor {
 public:
 
     MyBGSubtractorColor(cv::VideoCapture vc);
-	void LearnModel();
+    bool LearnModel();
 	void ObtainBGMask(cv::Mat frame, cv::Mat &bgmask);
-	
-
+    bool reiniciarHIGHGUI_;
+    bool aplicarMediaTotal_;
+    int max_samples;
 private:
     int h_low,h_up,l_low,l_up,s_low,s_up,dilation,mediana,ero;
+    int max_horiz_samples,max_vert_samples,sample_size,distance_between_samples;
     cv::VideoCapture cap;
 	
 	std::vector<cv::Scalar> means;
-	std::vector<cv::Scalar> lower_bounds;
-	std::vector<cv::Scalar> upper_bounds;
-	int max_samples;
-        static void Trackbar_func(int, void*);
+    cv::Scalar  mediaTodosLosCuadrados_;
+    std::vector<cv::Scalar> lower_bounds;
+	std::vector<cv::Scalar> upper_bounds;    
+    static void Trackbar_func(int, void*);
 };
