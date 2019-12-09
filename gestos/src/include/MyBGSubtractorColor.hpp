@@ -23,6 +23,8 @@ public:
     bool reiniciarHIGHGUI_;
     bool aplicarMediaTotal_;
     int max_samples;
+    int distancia_mano;
+
 private:
     int h_low,h_up,l_low,l_up,s_low,s_up,dilation,mediana,ero;
     int max_horiz_samples,max_vert_samples,sample_size,distance_between_samples;

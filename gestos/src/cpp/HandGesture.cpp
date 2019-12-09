@@ -36,7 +36,7 @@ double HandGesture::getAngle(Point s, Point e, Point f) {
 	if (angle < -CV_PI) angle += 2 * CV_PI;
 	return (angle * 180.0/CV_PI);
 }
-int HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
+pair<int,int> HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
 	
 	vector<vector<Point> > contours;
 	Mat temp_mask;
@@ -111,18 +111,44 @@ int HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
         while ((it_mayor!= mayor.rend()) && (contador <4))
         {
             //marco los puntos mas a lejados y el inicio de cada uno de ellos
-            circle(output_img, it_mayor->second[0], 5, Scalar(255,0,0), 3);
-            circle(output_img, it_mayor->second[1], 5, Scalar(0,255,0), 3);
+            circle(output_img, it_mayor->second[0], 5, Scalar(255,0,0), 3); //azul inicio
+            circle(output_img, it_mayor->second[1], 5, Scalar(0,255,0), 3); //verde final
             circle(output_img, it_mayor->second[2], 5, Scalar(0,0,255), 3);
-            contador = contador +1;
-            it_mayor++;
+            contador++;
+            it_mayor++;            
 
             //imshow("Reconocimiento", output_img);
             //QMessageBox::warning(nullptr,"Punto",QString("Valor profundiad %1").arg(it_mayor->first));
-
        }
 
+        //en contador numero de dedos
+
+        Rect boundRect;
+        boundRect = boundingRect( contours[index]);
+
+        boundRect.area();
+        if (boundRect.area() < (distancia_mano*0.50))
+               contador=-1;
+        qDebug()<< boundRect.area();
+
+/*        vector<Point2f>centers( contours.size() );
+        vector<float>radius( contours.size() );
+        for( size_t i = 0; i < contours.size(); i++ )
+        {
+            approxPolyDP( contours[i], contours_poly[i], 3, true );
+            boundRect[i] = boundingRect( contours_poly[i] );
+            minEnclosingCircle( contours_poly[i], centers[i], radius[i] );
+        }
+        Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
+        for( size_t i = 0; i< contours.size(); i++ )
+        {
+            Scalar color = Scalar( rng.uniform(0, 256), rng.uniform(0,256), rng.uniform(0,256) );
+            drawContours( drawing, contours_poly, (int)i, color );
+
+  */
+
         int gesto=0;
-return gesto;
+        pair<int,int> resultado(contador+1,gesto);
+return resultado ;
 
 }

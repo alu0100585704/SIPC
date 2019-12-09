@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <utility>
+//#include <pair>
+using namespace std;
 #define POLLING_INTERVAL 100
 
 
@@ -153,16 +156,43 @@ int c;
              //...
              cuadrados_->ObtainBGMask(frame_, bgmask_);
              HandGesture mano;
-             int gesto=mano.FeaturesDetection(bgmask_, frame_);
+             mano.distancia_mano=cuadrados_->distancia_mano;
+
+             pair<int,int> gesto;
+             gesto=mano.FeaturesDetection(bgmask_, frame_);
 
 
              // deteccion de las características de la mano
 
                      // mostramos el resultado de la sobstracción de fondo
 
-                       // mostramos el resultado del reconocimento de gestos
-             putText(frame_,"Mano Cerrada",Point(30,10),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
-            switch (gesto)
+                       // mostramos el resultado del reconocimento de gestos             
+
+            switch (gesto.first)
+            {
+                case 0:
+                putText(frame_,"0 Dedos",Point(30,30),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+                    break;
+                case 1:
+                putText(frame_,"1 Dedo",Point(30,30),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+                    break;
+                case 2:
+            putText(frame_,"2 Dedos",Point(30,30),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+                break;
+            case 3:
+            putText(frame_,"3 Dedos",Point(30,30),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+                break;
+            case 4:
+            putText(frame_,"4 Dedos",Point(30,30),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+                break;
+            case 5:
+            putText(frame_,"5 Dedos",Point(30,30),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+                break;
+
+                default:
+                    break;
+             }
+            switch (gesto.second)
             {
                 case 0:
                     break;
@@ -171,6 +201,7 @@ int c;
                 default:
                     break;
              }
+
             imshow("Fondo", bgmask_);
 
              imshow("Reconocimiento", frame_);

@@ -14,11 +14,12 @@ class HandGesture {
 public:
 	HandGesture();
 
-    int FeaturesDetection(cv::Mat mask, cv::Mat output_img);
+    std::pair<int, int> FeaturesDetection(cv::Mat mask, cv::Mat output_img);
 	
-
+int distancia_mano;
 private:
 	double getAngle(cv::Point s, cv::Point e, cv::Point f);
+
 	
 	
 

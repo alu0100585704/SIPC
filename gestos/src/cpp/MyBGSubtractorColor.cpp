@@ -51,6 +51,7 @@ MyBGSubtractorColor::MyBGSubtractorColor(VideoCapture vc) {
     createTrackbar("MAX_VERT_SAMPLES", "Trackbars", &max_vert_samples, 50, nullptr);
     createTrackbar("SAMPLE_SIZE", "Trackbars", &sample_size, 150, &MyBGSubtractorColor::Trackbar_func);
     createTrackbar("DISTANCE_BEWEEN_SAMPLES", "Trackbars", &distance_between_samples, 50, &MyBGSubtractorColor::Trackbar_func);
+    createTrackbar("Distancia de la mano", "Trackbars", &distancia_mano, 150000, &MyBGSubtractorColor::Trackbar_func);
 }
 
 void MyBGSubtractorColor::Trackbar_func(int, void*)
@@ -170,7 +171,8 @@ Scalar aux;
                             low[1] = 0;
                         else
                             low[1] = aux[1]-l_low;
-                        if((aux[2]-h_low)<0)
+
+                        if((aux[2]-s_low)<0)
                             low[2] = 0;
                         else
                             low[2] = aux[2]-s_low;
