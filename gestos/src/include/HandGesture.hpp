@@ -14,7 +14,7 @@ class HandGesture {
 public:
 	HandGesture();
 
-    std::pair<int, int> FeaturesDetection(cv::Mat mask, cv::Mat output_img);
+    std::pair<int, int> FeaturesDetection(cv::Mat &mask, cv::Mat &output_img);
 	
 int distancia_mano;
 private:

@@ -36,7 +36,7 @@ double HandGesture::getAngle(Point s, Point e, Point f) {
 	if (angle < -CV_PI) angle += 2 * CV_PI;
 	return (angle * 180.0/CV_PI);
 }
-pair<int,int> HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
+pair<int,int> HandGesture::FeaturesDetection(Mat &mask, Mat &output_img) {
 	
 	vector<vector<Point> > contours;
 	Mat temp_mask;
@@ -46,7 +46,7 @@ pair<int,int> HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
         // CODIGO 3.1
         // detecci√≥n del contorno de la mano y selecci√≥n del contorno m√°s largo
         //...
-    circle(temp_mask, Point (10,10), 5, Scalar(255));
+    circle(temp_mask, Point (10,10), 1, Scalar(255));
         findContours(temp_mask,contours,cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
 
         // pintar el contorno
@@ -57,7 +57,29 @@ pair<int,int> HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
                     aux_sz = contours[i].size();
                     index  = i;
                 }
-            drawContours(output_img,contours, index, cv::Scalar(305,49,43), 2, 8, vector<Vec4i>(), 0, Point());
+
+        // AquÌ voy a intentar limpiar y solo coger el contorno si cuadra con unos valores relaciÛn entre el area del rectangulo y el numero de puntos
+            //de un contorno
+           /*Rect boundRectAux;
+           int resolucion,areaMano,numeroPixelContorno,margenSuperior,margenInferior,margen;
+
+
+           resolucion=output_img.rows*output_img.cols; // la proporciÛn puede cambiar dependiendo de la c·mar, y por tanto todo lo dem·s.
+           areaMano=resolucion*0.35; //mas o menos un 35% debe de ser el rect·ngulo del area de la mano
+
+
+           boundRectAux = boundingRect(contours[index]);
+           numeroPixelContorno=boundRectAux.area()*0.0070; //este porcentaje es el numero de pixeles que deberÌan conformar el contorno
+           margen=numeroPixelContorno*0.20; //margen de 2% superior e inferior
+
+           if ((contours[index].size() > numeroPixelContorno-margen) &&  (contours[index].size() < numeroPixelContorno+margen))
+            {
+               putText(output_img,"Mano Detectada",Point(100,130),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+               drawContours(output_img,contours, index, cv::Scalar(255,255,255), 2, 8, vector<Vec4i>(), 0, Point());
+           }
+*/
+   drawContours(output_img,contours, index, cv::Scalar(305,49,43), 2, 8, vector<Vec4i>(), 0, Point());
+
 
 
 	//obtener el convex hull	
@@ -78,7 +100,10 @@ pair<int,int> HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
 	vector<Vec4i> defects;
 	convexityDefects(contours[index], hull, defects);
 		
-		
+
+    Rect boundRect;
+    boundRect = boundingRect( contours[index]);
+
     map<float,vector<Point>> mayor;
     pair<float,vector<Point>> nodo;
 
@@ -89,7 +114,8 @@ pair<int,int> HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
 			Point f = contours[index][defects[i][2]];
 			float depth = (float)defects[i][3] / 256.0;
 			double angle = getAngle(s, e, f);
-            if (angle < 90.00) //si el √°ngulo es mayor de 90 grados, ni siquiera insertes el punto en el map.
+//            if ((angle < 100.00) && ((int)depth > 50) && ((int) depth < 160)) //si el √°ngulo es mayor de 90 grados, ni siquiera insertes el punto en el map.
+if (angle < 100.00)  //si el √°ngulo es mayor de 90 grados, ni siquiera insertes el punto en el map.
                 {
                     nodo.second.resize(3);
                     nodo.first=depth;
@@ -97,14 +123,16 @@ pair<int,int> HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
                     nodo.second[1]=e;
                     nodo.second[2]=f;
                     mayor.insert(nodo);
+
                  }
-                          // CODIGO 3.2
+
+     // CODIGO 3.2
                         // filtrar y mostrar los defectos de convexidad
                         //...
 
                 }
         int contador=0;
-        map<float,vector<Point>>::reverse_iterator it_mayor;
+        multimap<float,vector<Point>>::reverse_iterator it_mayor;
         vector<pair<bool,Point>> gestos(4); //inicializo para contar los puntos
         pair <bool,Point> puntoGesto;
         it_mayor=mayor.rbegin();
@@ -114,6 +142,20 @@ pair<int,int> HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
             circle(output_img, it_mayor->second[0], 5, Scalar(255,0,0), 3); //azul inicio
             circle(output_img, it_mayor->second[1], 5, Scalar(0,255,0), 3); //verde final
             circle(output_img, it_mayor->second[2], 5, Scalar(0,0,255), 3);
+      switch (contador)
+            {
+                case 0:
+                putText(output_img,"C: " + std::to_string(contador) + " P: " + std::to_string((int) it_mayor->first) +  " A:" + std::to_string((int)getAngle(it_mayor->second[0], it_mayor->second[1], it_mayor->second[2])),Point(30,430),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+                 break;
+            case 1:
+
+                break;
+            case 2:
+                break;
+            case 3:
+                   break;
+            }
+
             contador++;
             it_mayor++;            
 
@@ -122,14 +164,16 @@ pair<int,int> HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
        }
 
         //en contador numero de dedos
+        //putText(output_img,std::to_string(contours[index].size()),Point(30,230),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+        //putText(output_img,std::to_string(hull.size()),Point(30,330),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+        //putText(output_img,std::to_string(output_img.rows*output_img.cols),Point(30,130),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
 
-        Rect boundRect;
-        boundRect = boundingRect( contours[index]);
 
-        boundRect.area();
-        if (boundRect.area() < (distancia_mano*0.50))
+        if (boundRect.area() < (distancia_mano*0.45))
                contador=-1;
-        qDebug()<< boundRect.area();
+
+        putText(output_img,"Area : " + std::to_string(boundRect.area()),Point(350,30),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+
 
 /*        vector<Point2f>centers( contours.size() );
         vector<float>radius( contours.size() );
@@ -152,3 +196,4 @@ pair<int,int> HandGesture::FeaturesDetection(Mat mask, Mat output_img) {
 return resultado ;
 
 }
+

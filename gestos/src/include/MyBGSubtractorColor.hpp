@@ -19,7 +19,7 @@ public:
 
     MyBGSubtractorColor(cv::VideoCapture vc);
     bool LearnModel();
-	void ObtainBGMask(cv::Mat frame, cv::Mat &bgmask);
+    void ObtainBGMask(cv::Mat &frame, cv::Mat &bgmask);
     bool reiniciarHIGHGUI_;
     bool aplicarMediaTotal_;
     int max_samples;

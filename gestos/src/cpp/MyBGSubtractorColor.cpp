@@ -29,7 +29,7 @@ MyBGSubtractorColor::MyBGSubtractorColor(VideoCapture vc) {
 	s_low = 80;
 	s_up = 80;
     dilation=0;
-    mediana=1;
+    mediana=11;
     ero=0;
     max_horiz_samples=3;
     max_vert_samples=6;
@@ -44,7 +44,7 @@ MyBGSubtractorColor::MyBGSubtractorColor(VideoCapture vc) {
 	createTrackbar("L high:", "Trackbars", &l_up, 100, &MyBGSubtractorColor::Trackbar_func);
 	createTrackbar("S low:", "Trackbars", &s_low, 100, &MyBGSubtractorColor::Trackbar_func);
 	createTrackbar("S high:", "Trackbars", &s_up, 100, &MyBGSubtractorColor::Trackbar_func);
-    //createTrackbar("Mediana:", "Trackbars", &mediana, 100, &MyBGSubtractorColor::Trackbar_func);
+    createTrackbar("Mediana:", "Trackbars", &mediana, 100, &MyBGSubtractorColor::Trackbar_func);
     createTrackbar("Dilation", "Trackbars", &dilation, 25, &MyBGSubtractorColor::Trackbar_func);
     createTrackbar("Erosion", "Trackbars", &ero, 25, &MyBGSubtractorColor::Trackbar_func);
     createTrackbar("MAX_HORIZ_SAMPLES", "Trackbars", &max_horiz_samples, 50, nullptr);
@@ -135,7 +135,7 @@ if (!reiniciarHIGHGUI_)
  }
  return reiniciarHIGHGUI_;
 }
-void  MyBGSubtractorColor::ObtainBGMask(cv::Mat frame, cv::Mat &bgmask) {
+void  MyBGSubtractorColor::ObtainBGMask(cv::Mat &frame, cv::Mat &bgmask) {
         
         // CODIGO 1.2
         // Definir los rangos máximos y mínimos para cada canal (HLS) 
@@ -176,25 +176,29 @@ Scalar aux;
                             low[2] = 0;
                         else
                             low[2] = aux[2]-s_low;
+
                         if((aux[0]+h_up)>255)
                             high[0] = 255;
                         else
                             high[0] = aux[0]+h_up;
+
                         if((aux[1]+l_up)>255)
                             high[1] = 255;
                         else
                             high[1] = aux[1]+l_up;
+
                         if((aux[2]+s_up)>255)
                             high[2] = 255;
                         else
                             high[2] = aux[2]+s_up;
 
                     inRange(hls_frame, low, high, tmp_frame);
-                    acc = acc +tmp_frame;
+                    acc = acc + tmp_frame;
             }
 
-        acc.copyTo(bgmask);
-medianBlur(bgmask, bgmask,mediana);
+        if ((mediana%2)==0) mediana+=1; //as� me aseguro que la mediana siempre sea impar
+                medianBlur(acc, bgmask,mediana);
+
 Mat element = getStructuringElement(MORPH_RECT, Size(2*dilation + 1, 2*dilation + 1),Point(dilation,dilation));
 Mat erosion = getStructuringElement(MORPH_RECT, Size(2*ero + 1, 2*ero + 1),Point(ero,ero));
 dilate(bgmask,bgmask,element);
