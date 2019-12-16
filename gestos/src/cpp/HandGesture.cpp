@@ -115,7 +115,7 @@ pair<int,int> HandGesture::FeaturesDetection(Mat &mask, Mat &output_img, std::ve
 			float depth = (float)defects[i][3] / 256.0;
 			double angle = getAngle(s, e, f);
 //            if ((angle < 100.00) && ((int)depth > 50) && ((int) depth < 160)) //si el ángulo es mayor de 90 grados, ni siquiera insertes el punto en el map.
-if ((angle < 90.00)) //si el ángulo es mayor de 90 grados, ni siquiera insertes el punto en el map.
+if ((angle < 90.00) && (depth>90)) //si el ángulo es mayor de 90 grados, ni siquiera insertes el punto en el map.
                 {
                     nodo.second.resize(3);
                     nodo.first=depth;
