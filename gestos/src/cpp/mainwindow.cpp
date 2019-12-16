@@ -139,6 +139,7 @@ void MainWindow::on_reconocerMano_clicked()
     ui->checkBox->setDisabled(false);
     isReconociendo_=true;
 int c;
+std::vector<cv::Point> traza;
     do {
 
         *cap_ >> frame_;
@@ -159,7 +160,7 @@ int c;
              mano.distancia_mano=cuadrados_->distancia_mano;
 
              pair<int,int> gesto;
-             gesto=mano.FeaturesDetection(bgmask_, frame_);
+             gesto=mano.FeaturesDetection(bgmask_, frame_,traza);
 
 
              // deteccion de las características de la mano
@@ -197,7 +198,12 @@ int c;
                 case 0:
                     break;
                 case 1:
+                putText(frame_,"Pistola",Point(180,30),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
                     break;
+                case 2:
+                putText(frame_,"Saludo",Point(180,30),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+                    break;
+
                 default:
                     break;
              }

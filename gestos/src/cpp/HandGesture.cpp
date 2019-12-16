@@ -36,7 +36,7 @@ double HandGesture::getAngle(Point s, Point e, Point f) {
 	if (angle < -CV_PI) angle += 2 * CV_PI;
 	return (angle * 180.0/CV_PI);
 }
-pair<int,int> HandGesture::FeaturesDetection(Mat &mask, Mat &output_img) {
+pair<int,int> HandGesture::FeaturesDetection(Mat &mask, Mat &output_img, std::vector<Point> &traza_) {
 	
 	vector<vector<Point> > contours;
 	Mat temp_mask;
@@ -104,7 +104,7 @@ pair<int,int> HandGesture::FeaturesDetection(Mat &mask, Mat &output_img) {
     Rect boundRect;
     boundRect = boundingRect( contours[index]);
 
-    map<float,vector<Point>> mayor;
+    multimap<float,vector<Point>> mayor;
     pair<float,vector<Point>> nodo;
 
 		int cont = 0;
@@ -115,7 +115,7 @@ pair<int,int> HandGesture::FeaturesDetection(Mat &mask, Mat &output_img) {
 			float depth = (float)defects[i][3] / 256.0;
 			double angle = getAngle(s, e, f);
 //            if ((angle < 100.00) && ((int)depth > 50) && ((int) depth < 160)) //si el ángulo es mayor de 90 grados, ni siquiera insertes el punto en el map.
-if (angle < 100.00)  //si el ángulo es mayor de 90 grados, ni siquiera insertes el punto en el map.
+if ((angle < 90.00)) //si el ángulo es mayor de 90 grados, ni siquiera insertes el punto en el map.
                 {
                     nodo.second.resize(3);
                     nodo.first=depth;
@@ -142,19 +142,19 @@ if (angle < 100.00)  //si el ángulo es mayor de 90 grados, ni siquiera insertes
             circle(output_img, it_mayor->second[0], 5, Scalar(255,0,0), 3); //azul inicio
             circle(output_img, it_mayor->second[1], 5, Scalar(0,255,0), 3); //verde final
             circle(output_img, it_mayor->second[2], 5, Scalar(0,0,255), 3);
-      switch (contador)
-            {
-                case 0:
-                putText(output_img,"C: " + std::to_string(contador) + " P: " + std::to_string((int) it_mayor->first) +  " A:" + std::to_string((int)getAngle(it_mayor->second[0], it_mayor->second[1], it_mayor->second[2])),Point(30,430),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
-                 break;
-            case 1:
+//      switch (contador)
+//            {
+//                case 0:
+              // putText(output_img,"C: " + std::to_string(contador) + " P: " + std::to_string((int) it_mayor->first) +  " A:" + std::to_string((int)getAngle(it_mayor->second[0], it_mayor->second[1], it_mayor->second[2])),Point(30,430),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+//                 break;
+//            case 1:
 
-                break;
-            case 2:
-                break;
-            case 3:
-                   break;
-            }
+//                break;
+//            case 2:
+//                break;
+//            case 3:
+//                   break;
+//            }
 
             contador++;
             it_mayor++;            
@@ -163,16 +163,55 @@ if (angle < 100.00)  //si el ángulo es mayor de 90 grados, ni siquiera insertes
             //QMessageBox::warning(nullptr,"Punto",QString("Valor profundiad %1").arg(it_mayor->first));
        }
 
+putText(output_img,"Area : " + std::to_string(boundRect.area()),Point(350,30),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
         //en contador numero de dedos
         //putText(output_img,std::to_string(contours[index].size()),Point(30,230),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
         //putText(output_img,std::to_string(hull.size()),Point(30,330),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
         //putText(output_img,std::to_string(output_img.rows*output_img.cols),Point(30,130),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
-
-
         if (boundRect.area() < (distancia_mano*0.45))
+        {
                contador=-1;
+               traza_.resize(0);
+            }
 
-        putText(output_img,"Area : " + std::to_string(boundRect.area()),Point(350,30),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+        int gesto=0;
+               if ((boundRect.height < boundRect.width) && (contador<3) && contador > -1)
+                        gesto=1;
+               else if  ((boundRect.height > boundRect.width) && (contador==4))
+                    gesto=2;
+
+         //output_img.rows*output_img.cols;
+         int centrox=(boundRect.width / 2) + boundRect.x;
+         int centroy=(boundRect.height / 2) + boundRect.y;
+
+         if (centroy <= (output_img.rows /2) && centrox <= (output_img.cols /3))
+                putText(output_img,"Superior/Izquierda ",Point(250,400),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+
+         if (centroy > (output_img.rows /2) && centrox <= (output_img.cols /3))
+                putText(output_img,"Inferior/Izquierda ",Point(250,400),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+
+         if (centroy < (output_img.rows /2) && centrox > (output_img.cols /3) && centrox < (output_img.cols * 2 /3))
+                putText(output_img,"Superior/Centro",Point(250,400),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+
+         if (centroy > (output_img.rows /2) && centrox > (output_img.cols /3) && centrox < (output_img.cols * 2 /3))
+                putText(output_img,"Inferior/Centro ",Point(250,400),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+
+         if (centroy < (output_img.rows /2) && centrox > (output_img.cols * 2 /3))
+                putText(output_img,"Superior/Derecha",Point(250,400),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+
+         if (centroy > (output_img.rows /2) && centrox > (output_img.cols * 2 /3))
+                putText(output_img,"Inferior/Derecha",Point(250,400),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+
+         if (contador==1)
+        {
+         putText(output_img,"Pintando",Point(350,300),FONT_HERSHEY_COMPLEX,1,Scalar(255),1);
+            it_mayor=mayor.rbegin();
+            traza_.push_back(it_mayor->second[2]);
+
+          for (int i=0; i < traza_.size(); i++)
+                       circle(output_img, traza_[i], 5, Scalar(250,120,200), 3);
+
+        }
 
 
 /*        vector<Point2f>centers( contours.size() );
@@ -191,7 +230,7 @@ if (angle < 100.00)  //si el ángulo es mayor de 90 grados, ni siquiera insertes
 
   */
 
-        int gesto=0;
+
         pair<int,int> resultado(contador+1,gesto);
 return resultado ;
 

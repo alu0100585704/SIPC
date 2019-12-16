@@ -26,16 +26,17 @@ MyBGSubtractorColor::MyBGSubtractorColor(VideoCapture vc) {
     h_up = 7;
 	l_low = 30;
 	l_up = 40;
-	s_low = 80;
+    s_low = 20;
 	s_up = 80;
-    dilation=0;
+    dilation=3;
     mediana=11;
-    ero=0;
+    ero=1;
     max_horiz_samples=3;
     max_vert_samples=6;
     sample_size=20;
     distance_between_samples=30;
     aplicarMediaTotal_=false;
+    distancia_mano=130000;
 
     namedWindow("Trackbars");
 	createTrackbar("H low:", "Trackbars", &h_low, 100, &MyBGSubtractorColor::Trackbar_func);
@@ -197,8 +198,8 @@ Scalar aux;
             }
 
         if ((mediana%2)==0) mediana+=1; //así me aseguro que la mediana siempre sea impar
-                medianBlur(acc, bgmask,mediana);
 
+        medianBlur(acc, bgmask,mediana);
 Mat element = getStructuringElement(MORPH_RECT, Size(2*dilation + 1, 2*dilation + 1),Point(dilation,dilation));
 Mat erosion = getStructuringElement(MORPH_RECT, Size(2*ero + 1, 2*ero + 1),Point(ero,ero));
 dilate(bgmask,bgmask,element);
