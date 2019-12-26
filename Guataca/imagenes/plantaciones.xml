@@ -9,12 +9,9 @@
 <Plantaciones> <!-- Estructura raiz que englobara todos los tipos de plantaciones -->
 	<Frutales> <!-- Plantaciones de tipo frutal -->
 		<Planta NOMBRE='Naranjo'>
-			<Imagen>imagenes/naranjo.jpg</Imagen>
+			<Imagen>naranjo.jpg</Imagen>
 
 			<Descripcion>
-				El naranjo es un árbol de tamaño mediano, de tres a cinco metros de altura, con copa redondeada y ramas regulares. Un solo tronco, derecho y cilíndrico, verdoso primero y gris después. Las ramas aparecen a un metro, poco más o menos, del suelo. Las hojas son perennes, medianas y alargadas, con base redondeada y terminadas en punta. Las flores aparecen en las axilas de las hojas, solitarias o en racimos.
-
-				El naranjo puede reproducirse por germinación de una semilla, por trasplante de una estaca o por acodo, es decir, partiendo de una raíz. En cualquier caso ha de transcurrir un cierto tiempo en el 
 			</Descripcion>
 			<Cuidados>
 				<Clima>
@@ -24,23 +21,24 @@
 				<Terreno>
 					El ideal es el arenoarcilloso con cierta cantidad de humus y siempre bien profundos. Por norma general, los terrenos para el citrus deben ser altos, con fácil drenaje, con mucha luz, aire y mucho espacio.
 				</Terreno>
-				<Plagas NOMBRE= "MOSCA BLANCA">
-					<Imagen>imagenes/naranjo.jpg</Imagen>
-					<Descripcion>
+				<Plagas>
+					<Nombre>
+						MOSCA_BLANCA
+					</Nombre>
+					<Imagen>naranjo.jpg</Imagen>
+					
 					El adulto de la mosca blanca crea una melaza que puede cubrir por completo la hoja (envés), propiciando el desarrollo de la enfermedad de la negrilla. Además esta melaza debilita la formación de brotes y atrae a nuevas plagas del naranjo, como cochinillas y ácaros, además de  algunas enfermedades.
 
 					Una forma de descubrir la mosca blanca entre las plagas del naranjo se basa en observar la circulación de hormigas (atraídas por la melaza) subiendo por el tronco hasta las hojas.
-					</Descripcion>
+				
 				</Plagas>
 				<Plagas NOMBRE='ACARO'>
-					<Imagen>imagenes/naranjo.jpg</Imagen>
-					<Descripcion>
+					<Imagen>naranjo.jpg</Imagen>
 					Presentan un tamaño muy reducido, en torno a 0,3 – 0,6 mm. Se pueden dividir en dos tipos, araña roja (Tetranychus urticae) y ácaro rojo (Panonychus citri). Los daños que presentan sobre el naranjo son los siguientes:
 
 					Araña roja: Se dispone en el envés de las hojas, tomando ésta un color amarillento y una formación cóncava.
 
 					Ácaro rojo: las picaduras de éste ácaro tornan la hoja de color mate, provocando los mayores daños al finalizar el verano y comenzar el otoño.
-				</Descripcion>
 				</Plagas>
 				<Riegos>
 					Demanda grandes aportes de agua (9000-12000 m3/ha). Hoy en día, la tendencia es emplear el riego localizado y por aspersión en grandes extensiones de zonas frías. Con ello lo protegemos contra las heladas.
