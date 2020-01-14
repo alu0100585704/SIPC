@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta charset="utf-8" />
+
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-analytics.js"></script>
+
+    <!--   Responsive   -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <!--   CSS Bootstrap-->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <!--  personal fonts    -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Dancing+Script" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Carter+One" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Jockey+One" />
+
+    <!--  Our CSS    -->
+    <link rel="stylesheet" href="css/style.css" crossorigin="anonymous" />
+
+    <!--  JS Bootstrap  -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
+    <!--  Our JS  -->
+    <script src="js/script.js"></script>
+
+    <!--   Favicon    -->
+    <link
+      rel="shortcut icon"
+      href="https://cdn.glitch.com/097eb43e-c343-4003-8dc1-0d09b75e76a6%2Ficono.png?v=1578231527642"
+      type="image/x-icon"
+    />
+
+    <!--   Título   -->
+    <title>Guataca</title>
+
+    <!--   Metadata   -->
+    <meta
+      name="description"
+      content="Guia y asistencia para el mundo de la agricultura."
+    />
+    <meta name="keywords" content="Agricultura, Plantaciones, Guia" />
+    <meta name="author" content="Juan Siverio" />
+    <meta name="author" content="Adan" />
+    <!--     <meta http-equiv="refresh" content="30"> -->
+  </head>
+
+  <body>
+    <!-- menu bar-->
+
+    <header>
+      <!--      Zona de la Imagen principal de la cabecera  -->
+      <div class="container-fluid">
+        <div class="row" id="img_header">
+          <div class="col-md-12">
+            <div class="jumbotron">
+              <h1>Mundo Agricultura</h1>
+              <p>Aprende todo lo que necesitas saber sobre el cultivo</p>
+            </div>
+          </div>
+        </div>
+
+        <!--  Menu principal  -->
+        <div class="row">
+          <div class="col-md-7">
+            <!-- crear la barra de menu con bootstrap, tematica oscura.  -->
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+              <button
+                class="navbar-toggler"
+                data-toggle="collapse"
+                data-target="#collapse_target"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="collapse_target">
+                <ul class="navbar-nav">
+                  <!--  Inicio  -->
+                  <a href="#index.html" class="navbar-brand">
+                    <img
+                      src="https://cdn.glitch.com/097eb43e-c343-4003-8dc1-0d09b75e76a6%2Ficono.png?v=1578231527642"
+                      width="35"
+                      height="35"
+                      class="d-inline-block align-top"
+                      alt=""
+                    />
+                    Guataca
+                  </a>
+
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      data-toggle="dropdown"
+                      data-target="dropdown_target"
+                    >
+                      Frutales
+                    </a>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdown_target"
+                    >
+                      <a
+                        class="dropdown-item"
+                        onclick="change('https://cdn.glitch.com/097eb43e-c343-4003-8dc1-0d09b75e76a6%2Fnaranjo.jpg?v=1578227215735',text_c_naranjo, text_d_naranjo, 'https://www.youtube.com/embed/DTDRUWhhwWo');"
+                        >Naranjo
+                      </a>
+                      <a
+                        class="dropdown-item"
+                        onclick="change('https://cdn.glitch.com/097eb43e-c343-4003-8dc1-0d09b75e76a6%2FSandia.jpg?v=1578232086536', text_c_sandia, text_d_sandia,'https://www.youtube.com/embed/v9rBMpxnsSk' )"
+                        >Sandia
+                      </a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      data-toggle="dropdown"
+                      data-target="dropdown_target"
+                      href="#"
+                      >Hortalizas
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown_target">
+                      <a class="dropdown-item" o
+                      onclick="change('https://cdn.glitch.com/097eb43e-c343-4003-8dc1-0d09b75e76a6%2Fpapa.jpg?v=1578232073158',text_c_papa, text_d_papa, 'https://www.youtube.com/embed/rD4WE1l4jks');"
+                      >Papas </a>
+                      <a class="dropdown-item" 
+                      onclick="change('https://cdn.glitch.com/097eb43e-c343-4003-8dc1-0d09b75e76a6%2Fplanta.jpg?v=1579002802667',text_c_batata, text_d_batata, 'https://www.youtube.com/embed/uq1zxHzlang');"
+                      >Batata </a>
+                      <a class="dropdown-item" 
+                      onclick="change('https://cdn.glitch.com/097eb43e-c343-4003-8dc1-0d09b75e76a6%2Fcuidados-del-calabacin.jpg?v=1579003760051',text_c_calabacin, text_d_calabacin, 'https://www.youtube.com/embed/KQNuSeRXBMo');"   
+                      >Calabacín </a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+<!--                     <a class="nav-link" href="about_us.html">About us </a> -->
+                    <button type="button" class="btn button-about nav-item" data-toggle="popover" data-placement="top" title="Proyecto de SIPC" data-content="Para este proyecto,
+                    hemos decidido hacer una guia de plantaciones junto con un prototipado de una app movil de compra de semillas.">About us</button>
+                  <li class="nav-item">
+                  </li>
+
+                    <a class="nav-link" href="html/tu_huerto.html"> Tu huerto </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+          <!--    Menu de login          -->
+          <div class="col-md-2 bg-dark">
+            <li style="display:none" id="nameUser" class="text-white"></li>
+            <li style="display:none" id="modoRol" class="text-white"></li>
+            <input id="txtEmail" type="email" placeholder="Email" />
+            <br />
+            <input id="txtPassword" type="password" placeholder="Contraseña" />
+          <div id="modos" style="display:inline" class="text-white">
+            <br/>
+		    	<label class="text-white" for="rol">Rol:</label>
+		    	<input id="modoRoot" class="text-white" type="radio" name="rol" value="root"/> 
+            <span style="display:inline" class="text-white"> Root</span>
+				<input id="modoUser" class="text-white" type="radio" name="rol" value="user"  checked/>
+            <span style="display:inline" class="text-white">User</span>
+		    </div>
+          </div>
+          
+          <div class="col-md-2 bg-dark">
+            <button id="btnLogin" class="btn btn-action text-white ">
+              Login
+            </button>
+            <button id="btnSignUp" class="btn btn-action text-white">
+              Registrarse
+            </button>
+            <button
+              style="display:none"
+              id="btnLogout"
+              class="btn btn-action text-white"
+            >
+              Logout
+            </button>
+          </div>
+
+          <div class="col-md-1 bg-dark">
+            <p style="display:inline" class="text-white">Usuarios en Línea :</p>
+            <p style="display:inline" id="userOnline" class="text-white"></p>
+          </div>
+          <!--    fin de Menu de login          -->
+        </div>
+      </div>
+    </header>
+    
+    <!--    Seleccion de plantación    -->
+    <article>
+     
+      <div class="container-fluid main-box" id="index_cont">
+        <section class="main row">
+      <!--      Toda la parte izquierda      -->
+          <div class="col-md-7 col-xs-12 col-xm-9 col-sm-6 Parte_izq main-box">
+            <div id="border-image">
+              <img id="img-fruit" style="width:55%; padding:1%"/>  
+            </div>
+            <div id="txt-cuidados"></div>
+          </div>
+      <!--    Toda la parte derecha        -->
+          <div class="col-md-5 col-xs-12 col-xm-3 col-sm-6 Parte_dcha main-box">
+            <div id="txt-descripcion"></div>
+            <iframe 
+              id="v-fruit"
+              width="80%"
+              height="315"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </section>
+
+        <!--    Naranjo    -->
+        <div id="naranjo" class="trees">
+          <div id="text_c_naranjo">
+            <h1>
+              Citrus x sinensis, Naranjo
+            </h1>
+            <div class="cuidados">
+              <h2>
+              Cuidados:
+              </h2>
+              <h2>
+                Clima
+              </h2>
+              <p>
+                Es una especie subtropical. No tolera las heladas, ya que sufre
+                tanto las flores y frutos como la vegetación, que pueden
+                desaparecer totalmente. Presenta escasa resistencia al frío (a los
+                3-5 ºC bajo cero sufre bastante).
+              </p>
+              <h2>
+                Terreno
+              </h2>
+              <p>
+                El ideal es el arenoarcilloso con cierta cantidad de humus y
+                siempre bien profundos. Por norma general, los terrenos para el
+                citrus deben ser altos, con fácil drenaje, con mucha luz, aire y
+                mucho espacio.
+              </p>
+
+              <h2>
+                Plagas
+              </h2>
+              <p>
+                <b>MOSCA BLANCA:</b> El adulto de la mosca blanca crea una melaza
+                que puede cubrir por completo la hoja (envés), propiciando el
+                desarrollo de la enfermedad de la negrilla. Además esta melaza
+                debilita la formación de brotes y atrae a nuevas plagas del
+                naranjo, como cochinillas y ácaros, además de algunas
+                enfermedades. Una forma de descubrir la mosca blanca entre las
+                plagas del naranjo se basa en observar la circulación de hormigas
+                (atraídas por la melaza) subiendo por el tronco hasta las hojas.
+              </p>
+            </div>
+            
+          </div>
+          <div id="text_d_naranjo">
+            <h2>
+              Descripción
+            </h2>
+            <p>
+              El naranjo es un árbol de tamaño mediano, de tres a cinco metros
+              de altura, con copa redondeada y ramas regulares. Un solo tronco,
+              derecho y cilíndrico, verdoso primero y gris después. Las ramas
+              aparecen a un metro, poco más o menos, del suelo. Las hojas son
+              perennes, medianas y alargadas, con base redondeada y terminadas
+              en punta. Las flores aparecen en las axilas de las hojas,
+              solitarias o en racimos. El naranjo puede reproducirse por
+              germinación de una semilla, por trasplante de una estaca o por
+              acodo, es decir, partiendo de una raíz. En cualquier caso ha de
+              transcurrir un cierto tiempo en el.
+            </p>
+          </div>
+        </div>
+
+        <!--    Sandía    -->
+        <div id="sandia" class="trees">
+          <div id="text_c_sandia">
+            <h1>
+              Sandia
+            </h1>
+
+            <div class="cuidados">
+              <h2>
+                Cuidados:
+              </h2>
+              <h2>
+                Clima
+              </h2>
+              <p>
+                La sandía es muy poco exigente el clima, aunque presenta problemas
+                con su germinación y desarrollo si durante su crecimiento se
+                producen contrastes de temperatura muy bruscos y pronunciados,
+                provocando estos desajustes que los tallos se debiliten y que el
+                polen quede inservible. Otro factor importante derivado del clima
+                es la humedad, ya que esta es determinante en la floración de la
+                planta.
+              </p>
+              <h2>
+                Terreno
+              </h2>
+              <p>
+                El ideal es el arenoarcilloso con cierta cantidad de humus y
+                siempre bien profundos. Mantener el suelo en óptimas condiciones
+                para garantizar el crecimiento de la sandía se realiza mediante
+                una técnica conocida como "acolchado". El acolchado consiste en
+                cubrir el suelo donde crece la sandía con polietileno negro,
+                plástico, para lograr aumentar la temperatura del sustrato,
+                reducir la evaporación del agua de riego y evitar que se
+                reproduzcan las malas hierbas. De estajo
+                Sandi manera mejoras la calidad
+                de la planta y garantizas una buena producción.
+              </p>
+
+              <h2>
+                Plagas
+              </h2>
+              <p>
+                Oruga:Podemos observar agujeros en las hojas, ramas o frutos y la
+                clave para diferenciarlas de los caracoles y babosas es que estos
+                dejan un camino plateado por donde pasan, en el caso de las orugas
+                solo veríamos los excrementos. Podemos usar un remedio casero como
+                APICHI o comprar Bacillus Thuringiensis.
+              </p>
+            </div>
+          </div>
+
+          <div id="text_d_sandia" class="descript">
+            <h2>
+              Descripción
+            </h2>
+            <p>
+              Es una planta herbácea de ciclo anual, trepadora o rastrera, de
+              textura áspera, con tallos pilosos provistos de zarcillos y hojas
+              de cinco lóbulos profundos. Las flores son amarillas, grandes y
+              unisexuales, las femeninas tienen el gineceo con tres carpelos, y
+              las masculinas con estambres. El fruto de la planta es
+              grande (normalmente más de 4 kilos), pepónide, carnoso y jugoso
+              (más del 90% es agua), casi esférico, de textura lisa y sin
+              porosidades, de color verde en dos o más tonos. La pulpa es de
+              color rojo - por el antioxidante licopeno (también presente en los
+              tomates), y de carne generalmente de sabor dulce (más raramente
+              amarilla y amarga). Las numerosas semillas pueden llegar a medir 1
+              cm de longitud, son de color negro, marrón o blanco y ricas en
+              vitamina E, se han utilizado en medicina popular y también se
+              consumen tostadas como alimento.
+            </p>
+          </div>
+        </div>
+        <!--    Papas    -->
+        <div id="papa" class="trees">
+          <div id="text_c_papa">
+            <h1>
+              Papas
+            </h1>
+            <div class="cuidados">
+              <h2>
+                Cuidados:
+              </h2>
+              <h2>
+                Clima
+              </h2>
+              <p>
+                Cultívala en un clima templado. Esta planta necesita de clima templado. 
+                Puedes cultivar en clima de templado a frío, aunque el frío en exceso puede perjudicar al desarrollo de la patata evitando que continúe de forma natural su desarrollo. 
+                Sin embargo, si las temperaturas son demasiado altas queda expuesta plagas y enfermedades. Este cultivo, además, es muy sensible a las heladas, quedando dañados los tubérculos si el frío es intenso. 
+                Debes controlar también la humedad, ya que es uno de los factores más importantes en el cultivo de patata alterando su desarrollo en su germinación o madurez si es excesivamente alta.
+              </p>
+              <h2>
+                Terreno
+              </h2>
+              <p>
+                No la plantes en suelos muy compactos. En lo referente al suelo, la patata es tan poco exigente que solo los suelos demasiado compactos y pedregosos son los únicos donde no se aconseja cultivarla. 
+                Aunque se da bien en cualquier terreno, la calidad del fruto varía:
+                En terrenos con exceso de humedad los tubérculos son blandos y con poco sabor.
+                En los terrenos secos el rizoma se alarga demasiado y aumenta el número de tubérculos, pero disminuye su tamaño.
+                En definitiva, la patata prefiere los suelos ligeros y profundos y ricos en humus y tolera muy bien la salinidad.
+              </p>
+
+              <h2>
+                Plagas
+              </h2>
+              <p>
+                Escarabajo de la papa (Leptinotarsa decemlineata) es una plaga severa con fuerte resistencia a los insecticidas.
+              </p>
+            </div>
+          </div>
+
+          <div id="text_d_papa" class="descript">
+            <h2>
+              Descripción
+            </h2>
+            <p>
+              La patata, Solanum tuberosum, es una planta originaria de Sudamérica que pertenece a la familia de las solanáceas.
+              El cuidado y cultivo de la patata se realiza en todo el mundo debido a sus cotizados tubérculos,
+              que son comestibles y que han terminado convirtiéndose en un alimento de primera necesidad para el hombre.
+            </p>
+          </div>
+        </div>
+        <!--    batata    -->
+        <div id="batata" class="trees">
+          <div id="text_c_batata">
+            <h1>
+              Batata
+            </h1>
+            <div class="cuidados">
+              <h2>
+                Cuidados:
+              </h2>
+              <h2>
+                Clima
+              </h2>
+              <p>
+                la batata es una planta tropical y por ello no tolera las bajas temperaturas.
+                Las condiciones adecuadas para su cultivo son una temperatura superior de 21ºC, acompañado de un ambiente húmedo y mucha luminosidad.
+                La batata además, tolera muy bien el calor y el viento fuerte, ya que es una planta rastrera.
+              </p>
+              <h2>
+                Terreno
+              </h2>
+              <p>
+                la batata prefiere los suelos arenosos, aunque también la puedes cultivar en los ligeramente arcillosos.
+                El mejor suelo para su cultivo es el que tiene una textura gruesa, suelta y con un buen drenaje.
+              </p>
+
+              <h2>
+                Plagas
+              </h2>
+              <p>
+                Rosquilla negra (Spodoptera littoralis Boisd.).
+                Plaga habitual en el litoral mediterráneo a partir del mes de junio, que en su fase larvaria es gran comedor de hojas.
+              </p>
+            </div>
+          </div>
+
+          <div id="text_d_batata" class="descript">
+            <h2>
+              Descripción
+            </h2>
+            <p>
+              La batata, Ipomoea batatas, o también conocida como boniato es una planta que pertenece a la familia de las Convolvulaceae y su cuidado y cultivo se realiza en casi todo el mundo.
+              Es originaria de la zona tropical sudamericana y su importancia hortícola es debido a su sabor dulce y su alto contenido en azúcares.
+              A continuación, en este texto, vamos a mostrarte cómo cuidar y cultivar batata.
+            </p>
+          </div>
+        </div>
+        <!--    Calabacin    -->
+        <div id="calabacin" class="trees">
+          <div id="text_c_calabacin">
+            <h1>
+              Calabacin
+            </h1>
+            <div class="cuidados">
+              <h2>
+                Cuidados:
+              </h2>
+              <h2>
+                Clima
+              </h2>
+              <p>
+                El calabacín es un cultivo que necesita un clima cálido para germinar.
+                Para cultivar el calabacín en tu huerto en casa, puedes hacer la siembra directamente en tierra o en una capa de arena, a razón de 2-3 semillas por hoyo, a una profundidad de 2 cms.
+                Las semillas se siembran juntas porque el objetivo es que al emerger rompan la costra del suelo con mayor facilidad.
+                Una vez colocadas, hay que cubrirlas con 3-4 cms. de tierra o arena según corresponda.
+              </p>
+              <h2>
+                Terreno
+              </h2>
+              <p>
+                El calabacín es muy poco exigente con el suelo y se adapta con facilidad a todo tipo, aunque prefiere aquellos profundos y bien drenados.
+                En cuanto a los fertilizantes, los abonos simples son los que más se utilizan, tanto solubles como en forma líquida.
+              </p>
+
+              <h2>
+                Plagas
+              </h2>
+              <p>
+                Rosquilla negra (Spodoptera littoralis Boisd.).
+                Plaga habitual en el litoral mediterráneo a partir del mes de junio, que en su fase larvaria es gran comedor de hojas.
+              </p>
+            </div>
+          </div>
+          <div class="descript">
+          <div id="text_d_calabacin">
+            <h2>
+              Descripción
+            </h2>
+              
+              <p>
+                El calabacín es una verdura que se ha hecho muy popular en los últimos años, ya que es sabrosa, nutritiva y baja en calorías.
+                Su uso culinario es amplio y variado: rellenos, en tempura, en tortilla, asados ¡y mucho más!
+                Entonces… ¿por qué no cultivar tus propios calabacines en tu huerto en casa?
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <script src="js/mifirebase.js"></script>
+  </body>
+</html>

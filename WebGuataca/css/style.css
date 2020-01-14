@@ -1,0 +1,141 @@
+/* header{
+	background: -webkit-linear-gradient(top, #32CD32 0%, #90EE90 100%);
+} */
+
+/******************************** Parte general *******************************************/
+body{
+  
+  /* 	background-image: url("https://cdn.glitch.com/097eb43e-c343-4003-8dc1-0d09b75e76a6%2Ffondo5.jpg?v=1578227208500"); */
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
+    margin: 0;
+    background-color:#25262B;
+  }
+  
+  .jumbotron {
+    background-image: url("https://cdn.glitch.com/097eb43e-c343-4003-8dc1-0d09b75e76a6%2Frucola-salad-plant-leaf.jpg?v=1578333538318");
+    background-size:contain;
+    background-position: center;
+    background-size: cover;
+  
+  }
+  
+  /* Imagen cabecera */
+  #img_header, h1{
+    color: #F3EFF5;
+   -webkit-text-stroke: 0.1vw black; /* Para poner un borde al texto */
+    font-size:3vw;
+    
+  }
+  
+  
+  
+  /*********************************Fin parte general***************************************/
+  
+  /**************************************Index*********************************************/
+  
+  .trees{
+    background-color: #F3EFF5;
+    paddding 5%;
+    margin:3px;
+  }
+  
+  .main-row{
+    
+  }
+  .Parte_izq{
+    
+    margin: auto;
+    background-color: #F6F1D1;
+    border: 2px solid black;
+    text-align:center;
+  }
+  
+  
+  
+  #img-fruit{
+    border: 2px solid #FBB13C;
+    text-decoration:none;
+    padding-top:20%;
+    box-shadow: 100px 0 #086788 inset,
+                200px 0 #06AED5 inset,
+                300px 0 #73D2DE inset,
+                400px 0 #D1B3C4 inset,
+                500px 0 #B392AC inset,
+                600px 0 #735D78 inset;
+    border-radius: 15px;
+    
+  }
+  #v-fruit{
+      border: 2px solid #FBB13C;
+    border-radius: 15px;
+    
+  }
+  
+  .Parte_dcha{
+    background-color: #f6f1d1;
+    border: 2px solid black;
+    text-align:center;
+    
+  }
+  #txt-cuidados h1{
+    font-family: 'Dancing Script', cursive;
+    color: #85FF9E;
+    text-shadow: 5px 5px 5px #000;
+    
+  }
+  #txt-cuidados h2{
+    font-family: 'Carter One';
+    color: #85FF9E;
+    background-color:#D4AFB9;
+    -webkit-text-stroke: 0.1vw black;
+    text-shadow: 5px 5px 5px #000;
+    
+    
+  }
+  #txt-cuidados p{
+     font-family: 'Jockey One'; 
+  /*    color: #85FF9E;  */
+    
+    
+  }
+  #text_c_naranjo {
+    color: #F3EFF5;
+  }
+  #text_c_sandia h2 {
+    color: #F3EFF5;
+  }
+  #txt-cuidados div.cuidados {
+    
+    background-color: #E8C2CA;
+    border-radius: 20px;
+    border: 8px solid black;
+    
+  }
+  #txt-descripcion h2{
+    font-family: 'Carter One';
+    color: #85FF9E;
+    background-color:#D4AFB9;
+    -webkit-text-stroke: 0.1vw black;
+    text-shadow: 5px 5px 5px #000;
+  }
+  #txt-descripcion p{
+    background-color: #E8C2CA;
+    border-radius: 20px;
+    font-family: 'Jockey One'; 
+    border: 8px solid black;
+  }
+  
+  
+  
+  .button-about {
+    cursor: pointer;
+    background-color:  rgb(0, 0, 0, 0.7);
+    color: #fff;
+    border: 0.1em solid;
+  
+  }
+  
+  /***********************************Fin index***********************************************/
+  
+  

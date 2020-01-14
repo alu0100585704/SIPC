@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="plants.xsl"?>
+
+<!--	*Código XML para página Guía de Plantaciones.
+		*Asignatura: Sistemas de interaccion Persona Computador.
+		*Curso: 2019-2020
+		*Universidad: ULL   
+-->
+
+<Plantaciones> <!-- Estructura raiz que englobara todos los tipos de plantaciones -->
+    <planta nombre = "Naranjo">
+      <Litros>50</Litros>
+      <Temperatura>
+        <max>27</max>
+        <min>5</min>
+      </Temperatura>
+      <temporada>
+        <dia>1</dia>
+        <mes>marzo</mes>
+      </temporada>
+    </planta>
+    <planta nombre = "Sandia">
+      <Litros>160</Litros>
+      <Temperatura>
+        <max>23</max>
+        <min>2</min>
+      </Temperatura>
+      <temporada>
+        <dia>1</dia>
+        <mes>julio</mes>
+      </temporada>
+    </planta>
+ 
+    <planta nombre = "Papa">
+      <Litros>90</Litros>
+      <Temperatura>
+        <max>28</max>
+        <min>7</min>
+      </Temperatura>
+      <temporada>
+        <dia>15</dia>
+        <mes>Diciembre</mes>
+      </temporada>
+    </planta>
+    <planta nombre = "Batata">
+      <Litros>100</Litros>
+      <Temperatura>
+        <max>25</max>
+        <min>0</min>
+      </Temperatura>
+      <temporada>
+        <dia>3</dia>
+        <mes>Febrero</mes>
+      </temporada>
+    </planta>
+</Plantaciones>
