@@ -1,1 +1,1 @@
-xalan -in Plantaciones.xml -xsl naranjo.xsl -out plantacion.html
+xalan -in plants.xml -xsl plants.xsl -out huertp.html
